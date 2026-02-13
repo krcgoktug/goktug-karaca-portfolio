@@ -1,13 +1,14 @@
 ﻿const translations = {
   en: {
-    page_title: "Goktug Karaca",
+    page_title: "Göktuğ Karaca",
     meta_description:
-      "Official website of Goktug Karaca - Computer Engineering student building software, AI, and cybersecurity projects.",
+      "Official website of Göktuğ Karaca - Computer Engineering student building software, AI, and cybersecurity projects.",
     nav_about: "About",
     nav_experience: "Experience",
     nav_projects: "Projects",
     nav_skills: "Skills",
     nav_education: "Education",
+    nav_resume: "Resume",
     nav_contact: "Get in Touch",
     contact_me: "Contact Me",
     theme_label: "Dark Mode",
@@ -95,6 +96,7 @@
     nav_projects: "Projeler",
     nav_skills: "Yetenekler",
     nav_education: "Eğitim",
+    nav_resume: "Özgeçmiş",
     nav_contact: "İletişim",
     contact_me: "Bana Ulaş",
     theme_label: "Koyu Mod",
