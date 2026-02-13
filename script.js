@@ -1,0 +1,23 @@
+const revealItems = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+);
+
+revealItems.forEach((item, index) => {
+  item.style.transitionDelay = `${Math.min(index * 35, 340)}ms`;
+  revealObserver.observe(item);
+});
+
+const yearNode = document.getElementById("year");
+if (yearNode) {
+  yearNode.textContent = String(new Date().getFullYear());
+}
