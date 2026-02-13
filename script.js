@@ -164,7 +164,7 @@ const THEME_STORAGE_KEY = "portfolio-theme";
 
 const i18nNodes = document.querySelectorAll("[data-i18n]");
 const languageButtons = document.querySelectorAll(".language-option");
-const themeToggle = document.getElementById("themeToggle");
+const themeToggleButton = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 const yearNode = document.getElementById("year");
 const htmlNode = document.documentElement;
@@ -204,8 +204,10 @@ function applyTheme(theme) {
 
   bodyNode.setAttribute("data-theme", selectedTheme);
 
-  if (themeToggle) {
-    themeToggle.checked = selectedTheme === "dark";
+  if (themeToggleButton) {
+    themeToggleButton.classList.remove("is-dark", "is-light");
+    themeToggleButton.classList.add(selectedTheme === "dark" ? "is-dark" : "is-light");
+    themeToggleButton.setAttribute("aria-pressed", String(selectedTheme === "dark"));
   }
 
   if (themeIcon) {
@@ -274,9 +276,10 @@ languageButtons.forEach((button) => {
   });
 });
 
-if (themeToggle) {
-  themeToggle.addEventListener("change", () => {
-    applyTheme(themeToggle.checked ? "dark" : "light");
+if (themeToggleButton) {
+  themeToggleButton.addEventListener("click", () => {
+    const currentTheme = bodyNode.getAttribute("data-theme") === "light" ? "light" : "dark";
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
   });
 }
 

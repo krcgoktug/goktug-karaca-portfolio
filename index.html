@@ -75,13 +75,10 @@
                 </button>
               </div>
 
-              <div class="form-check form-switch theme-switch m-0">
-                <input class="form-check-input" type="checkbox" role="switch" id="themeToggle" checked />
-                <label class="form-check-label d-flex align-items-center gap-2" for="themeToggle">
-                  <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
-                  <span data-i18n="theme_label">Dark Mode</span>
-                </label>
-              </div>
+              <button type="button" class="btn btn-ui btn-sm theme-toggle-btn is-dark" id="themeToggle" aria-pressed="true">
+                <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                <span data-i18n="theme_label">Dark Mode</span>
+              </button>
 
               <a class="btn btn-accent btn-sm" href="mailto:karacagoktug73@gmail.com" data-i18n="contact_me"
                 >Contact Me</a
@@ -165,6 +162,15 @@
                 </div>
               </div>
             </div>
+
+            <article class="card ui-card status-card hero-focus-card mt-3 reveal">
+              <div class="card-body">
+                <p class="status-title mb-2" data-i18n="hero_focus_title">Current Focus</p>
+                <p class="mb-0" data-i18n="hero_focus_text">
+                  Scalable backend systems, data-driven AI, and clean frontend delivery.
+                </p>
+              </div>
+            </article>
           </div>
 
           <div class="col-lg-5 hero-media-col">
@@ -175,14 +181,6 @@
                 class="profile-photo"
               />
             </div>
-            <article class="card ui-card status-card mt-3 reveal">
-              <div class="card-body">
-                <p class="status-title mb-2" data-i18n="hero_focus_title">Current Focus</p>
-                <p class="mb-0" data-i18n="hero_focus_text">
-                  Scalable backend systems, data-driven AI, and clean frontend delivery.
-                </p>
-              </div>
-            </article>
           </div>
         </div>
       </section>
