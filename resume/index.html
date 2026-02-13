@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goktug Karaca | Resume</title>
+    <meta name="description" content="Goktug Karaca resume preview page." />
+    <style>
+      :root {
+        --bg: #071123;
+        --bg-soft: #0b1930;
+        --line: rgba(117, 227, 255, 0.26);
+        --text: #dce8ff;
+        --muted: #8ea4c8;
+        --accent: #24dcff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        min-height: 100vh;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 85% 12%, rgba(36, 220, 255, 0.2), transparent 34%),
+          linear-gradient(160deg, #04070f 0%, var(--bg) 46%, var(--bg-soft) 100%);
+      }
+
+      .layout {
+        width: min(1180px, 96vw);
+        margin: 18px auto;
+      }
+
+      .topbar {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: rgba(8, 18, 33, 0.82);
+        backdrop-filter: blur(8px);
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1rem, 2vw, 1.18rem);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 1px solid var(--line);
+        color: var(--text);
+        background: rgba(10, 24, 45, 0.9);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .viewer {
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+        height: calc(100vh - 122px);
+        min-height: 640px;
+        background: #0b1320;
+      }
+
+      .viewer iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .fallback {
+        padding: 22px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 768px) {
+        .layout {
+          width: 94vw;
+          margin: 12px auto;
+        }
+
+        .topbar {
+          border-radius: 12px;
+          padding: 10px;
+        }
+
+        .viewer {
+          min-height: 76vh;
+          height: 76vh;
+          border-radius: 12px;
+        }
+
+        .btn {
+          font-size: 0.84rem;
+          padding: 7px 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <header class="topbar">
+        <h1 class="title">Goktug Karaca - Resume</h1>
+        <div class="actions">
+          <a class="btn" href="/">Back to Website</a>
+          <a class="btn" href="/resume.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+        </div>
+      </header>
+
+      <section class="viewer" aria-label="Resume PDF Viewer">
+        <iframe src="/resume.pdf#view=FitH" title="Goktug Karaca Resume PDF">
+          <div class="fallback">
+            Your browser cannot display the PDF inline.
+            <a class="btn" href="/resume.pdf" target="_blank" rel="noreferrer">Open resume.pdf</a>
+          </div>
+        </iframe>
+      </section>
+    </main>
+  </body>
+</html>
