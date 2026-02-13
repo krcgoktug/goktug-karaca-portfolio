@@ -56,6 +56,13 @@
       "Modern PHP and SQLite car rental demo with dynamic pricing and a conversion-ready user interface.",
     proj_6_desc:
       "Personal finance tracking direction focused on clean user experience and practical spending insights.",
+    proj_7_desc:
+      "Digital System Design project focused on CPU chip architecture, ALU/control-path planning, and hardware-level logic design.",
+    proj_8_desc:
+      "Advanced Java OOP library system with role hierarchy, thread-safe catalog operations, automated fine logic, and layered search.",
+    proj_9_desc:
+      "Modular ERP/CRM concept for business automation, normalized relational data integrity, and optimized SQL joins for inventory-client workflows.",
+    projects_course_only: "Course Project",
     skills_kicker: "Skills",
     skills_title: "Technical Stack",
     skills_languages: "Languages",
@@ -136,6 +143,13 @@
       "Dinamik fiyatlama ve dönüşüm odaklı arayüzü olan modern PHP + SQLite araç kiralama demosu.",
     proj_6_desc:
       "Temiz kullanıcı deneyimi ve pratik harcama içgörüleri odaklı kişisel finans takip yaklaşımı.",
+    proj_7_desc:
+      "CPU mimarisi, ALU/kontrol yolu planlaması ve donanım düzeyi mantık tasarımına odaklanan Digital System Design projesi.",
+    proj_8_desc:
+      "Rol hiyerarşisi, thread-safe katalog işlemleri, otomatik ceza mantığı ve katmanlı arama içeren gelişmiş Java OOP kütüphane sistemi.",
+    proj_9_desc:
+      "İş otomasyonu, normalize ilişkisel veri bütünlüğü ve envanter-müşteri akışları için optimize SQL join'leri hedefleyen modüler ERP/CRM konsepti.",
+    projects_course_only: "Ders Projesi",
     skills_kicker: "Yetenekler",
     skills_title: "Teknik Yetenekler",
     skills_languages: "Diller",

@@ -612,6 +612,14 @@ body.motion-safe .profile-frame {
   color: color-mix(in srgb, var(--accent-alt) 82%, white 10%);
 }
 
+.project-note {
+  display: inline-flex;
+  margin-top: 0;
+  align-items: center;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--muted) 90%, var(--text) 10%);
+}
+
 .badge-chip {
   border: 1px solid var(--line);
   background: var(--chip-bg);
