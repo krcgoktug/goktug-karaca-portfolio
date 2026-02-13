@@ -238,17 +238,25 @@ body[data-theme="light"] .bg-noise {
 }
 
 .theme-toggle-btn i {
-  color: var(--accent);
+  color: var(--muted);
 }
 
 .theme-toggle-btn.is-dark {
-  border-color: color-mix(in srgb, var(--accent) 44%, var(--line));
-  background: color-mix(in srgb, var(--surface-soft) 75%, var(--accent) 15%);
+  border-color: var(--line);
+  background: var(--surface-soft);
+}
+
+.theme-toggle-btn.is-dark i {
+  color: var(--muted);
 }
 
 .theme-toggle-btn.is-light {
-  border-color: color-mix(in srgb, var(--accent-alt) 44%, var(--line));
-  background: color-mix(in srgb, var(--surface-soft) 72%, var(--accent-alt) 16%);
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--surface-soft) 80%, var(--accent) 9%);
+}
+
+.theme-toggle-btn.is-light i {
+  color: var(--accent);
 }
 
 .theme-toggle-btn:hover,
@@ -293,7 +301,7 @@ main {
 }
 
 #about.section {
-  margin-top: 3rem;
+  margin-top: 2.45rem;
 }
 
 .hero {
@@ -435,6 +443,21 @@ body[data-theme="light"] .orb {
   box-shadow: var(--shadow-soft);
 }
 
+.ui-card,
+.metric-card {
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.ui-card:hover,
+.metric-card:hover {
+  border-color: color-mix(in srgb, var(--accent-alt) 52%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent-alt) 40%, transparent),
+    var(--shadow-soft);
+}
+
 .ui-card .card-body {
   padding: 1.1rem 1.15rem;
 }
@@ -457,7 +480,8 @@ body[data-theme="light"] .orb {
 }
 
 .hero-focus-card {
-  max-width: 560px;
+  width: 100%;
+  max-width: none;
 }
 
 .section-head h2 {
@@ -483,15 +507,42 @@ body[data-theme="light"] .orb {
   color: var(--text);
 }
 
+.project-card .card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card p {
+  margin-bottom: 0;
+}
+
+.project-links {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem 1rem;
+  align-items: center;
+}
+
 .repo-link {
   display: inline-flex;
-  margin-top: 0.8rem;
+  margin-top: 0;
+  align-items: center;
   font-weight: 700;
   color: var(--accent);
 }
 
 .repo-link:hover {
   color: color-mix(in srgb, var(--accent) 74%, white 14%);
+}
+
+.live-link {
+  color: var(--accent-alt);
+}
+
+.live-link:hover {
+  color: color-mix(in srgb, var(--accent-alt) 82%, white 10%);
 }
 
 .badge-chip {
