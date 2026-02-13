@@ -1,8 +1,8 @@
 ﻿const translations = {
   en: {
-    page_title: "Goktug Karaca | Portfolio",
+    page_title: "Goktug Karaca",
     meta_description:
-      "Portfolio website of Goktug Karaca - Computer Engineering student building software, AI, and cybersecurity projects.",
+      "Official website of Goktug Karaca - Computer Engineering student building software, AI, and cybersecurity projects.",
     nav_about: "About",
     nav_experience: "Experience",
     nav_projects: "Projects",
@@ -80,9 +80,9 @@
     footer_rights: "All rights reserved."
   },
   tr: {
-    page_title: "Göktuğ Karaca | Portfolyo",
+    page_title: "Göktuğ Karaca",
     meta_description:
-      "Göktuğ Karaca portfolyo sitesi - yazılım mühendisliği, yapay zeka ve siber güvenlik alanlarında projeler geliştiren bilgisayar mühendisliği öğrencisi.",
+      "Göktuğ Karaca resmi web sitesi - yazılım mühendisliği, yapay zeka ve siber güvenlik alanlarında projeler geliştiren bilgisayar mühendisliği öğrencisi.",
     nav_about: "Hakkımda",
     nav_experience: "Deneyim",
     nav_projects: "Projeler",
@@ -171,6 +171,7 @@ const themeIcon = document.getElementById("themeIcon");
 const yearNode = document.getElementById("year");
 const htmlNode = document.documentElement;
 const bodyNode = document.body;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function applyLanguage(language) {
   const selectedLanguage = translations[language] ? language : "en";
@@ -241,6 +242,53 @@ function initializeRevealAnimation() {
   });
 }
 
+function initializeScrollProgress() {
+  const progressBar = document.querySelector(".scroll-progress");
+  if (!progressBar) {
+    return;
+  }
+
+  const updateProgress = () => {
+    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    const ratio = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
+    progressBar.style.setProperty("--progress", ratio.toFixed(4));
+  };
+
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+}
+
+function initializeCardSpotlight() {
+  if (prefersReducedMotion.matches) {
+    return;
+  }
+
+  const animatedCards = document.querySelectorAll(".ui-card, .metric-card");
+
+  animatedCards.forEach((card) => {
+    card.addEventListener("pointerenter", () => {
+      card.classList.add("is-hovered");
+    });
+
+    card.addEventListener("pointermove", (event) => {
+      const bounds = card.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+      card.style.setProperty("--mx", `${x}%`);
+      card.style.setProperty("--my", `${y}%`);
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.classList.remove("is-hovered");
+    });
+  });
+}
+
+function initializeMotionMode() {
+  bodyNode.classList.toggle("motion-safe", !prefersReducedMotion.matches);
+}
+
 function initializeNavigationBehavior() {
   const navCollapse = document.getElementById("mainNav");
   if (!navCollapse || !window.bootstrap) {
@@ -270,6 +318,9 @@ const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || "dark";
 applyLanguage(savedLanguage);
 applyTheme(savedTheme);
 initializeRevealAnimation();
+initializeScrollProgress();
+initializeCardSpotlight();
+initializeMotionMode();
 initializeNavigationBehavior();
 
 languageButtons.forEach((button) => {

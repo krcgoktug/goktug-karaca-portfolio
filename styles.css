@@ -74,6 +74,26 @@ body {
     background 260ms ease;
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 1300;
+  pointer-events: none;
+}
+
+.scroll-progress::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: calc(var(--progress, 0) * 100%);
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent);
+  transition: width 120ms linear;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -98,6 +118,7 @@ h6 {
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at 50% 44%, #000 28%, transparent 84%);
+  animation: gridDrift 22s linear infinite;
 }
 
 .bg-noise {
@@ -303,6 +324,28 @@ main {
   margin-top: 2.45rem;
 }
 
+.section-head {
+  position: relative;
+  padding-bottom: 0.84rem;
+}
+
+.section-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(320px, 72vw);
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 80%, transparent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 720ms ease 140ms;
+}
+
+.section-head.is-visible::after {
+  transform: scaleX(1);
+}
+
 .hero {
   min-height: 64vh;
   margin-top: 1.9rem;
@@ -422,6 +465,10 @@ body[data-theme="light"] .orb {
   box-shadow: var(--shadow-soft);
 }
 
+body.motion-safe .profile-frame {
+  animation: levitate 7.2s ease-in-out infinite;
+}
+
 .profile-photo {
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -439,9 +486,33 @@ body[data-theme="light"] .orb {
 
 .ui-card,
 .metric-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   transition:
     border-color 220ms ease,
     box-shadow 220ms ease;
+}
+
+.ui-card::before,
+.metric-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    230px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 30%, transparent),
+    transparent 64%
+  );
+  transition: opacity 220ms ease;
+}
+
+.ui-card.is-hovered::before,
+.metric-card.is-hovered::before {
+  opacity: 1;
 }
 
 .ui-card:hover,
@@ -454,6 +525,8 @@ body[data-theme="light"] .orb {
 
 .ui-card .card-body {
   padding: 1.1rem 1.15rem;
+  position: relative;
+  z-index: 1;
 }
 
 .ui-card h3 {
@@ -596,6 +669,37 @@ body[data-theme="light"] .orb {
   }
   100% {
     transform: translate3d(24px, -18px, 0) scale(1.06);
+  }
+}
+
+@keyframes gridDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(44px, 22px, 0);
+  }
+}
+
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-grid,
+  .orb,
+  .profile-frame {
+    animation: none !important;
+  }
+
+  .reveal {
+    transition: none;
   }
 }
 
