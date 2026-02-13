@@ -130,32 +130,35 @@ main {
   gap: 2.2rem;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(16px);
+  filter: blur(24px);
+  opacity: 0.95;
+  mix-blend-mode: screen;
+  pointer-events: none;
   z-index: -1;
   animation: drift 11s ease-in-out infinite alternate;
 }
 
 .orb-cyan {
-  width: 320px;
-  height: 320px;
-  top: -130px;
-  right: 8%;
-  background: radial-gradient(circle, rgba(36, 220, 255, 0.35), transparent 68%);
+  width: 430px;
+  height: 430px;
+  top: -210px;
+  right: 2%;
+  background: radial-gradient(circle, rgba(36, 220, 255, 0.34), transparent 74%);
 }
 
 .orb-lime {
-  width: 260px;
-  height: 260px;
-  bottom: -120px;
-  left: 2%;
+  width: 360px;
+  height: 360px;
+  bottom: -210px;
+  left: -6%;
   animation-delay: 1.8s;
-  background: radial-gradient(circle, rgba(200, 255, 79, 0.3), transparent 64%);
+  background: radial-gradient(circle, rgba(200, 255, 79, 0.28), transparent 72%);
 }
 
 .eyebrow,
