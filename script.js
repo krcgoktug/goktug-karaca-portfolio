@@ -44,7 +44,7 @@
     projects_kicker: "Projects",
     projects_title: "Selected Work on GitHub",
     projects_repo: "Repository",
-    projects_live: "Live Demo",
+    projects_live: "Visit Website",
     proj_1_desc:
       "Containerized SIS architecture with C++, PostgreSQL, and practical system programming patterns.",
     proj_2_desc:
@@ -124,7 +124,7 @@
     projects_kicker: "Projeler",
     projects_title: "GitHub Üzerindeki Seçili Çalışmalar",
     projects_repo: "Repo",
-    projects_live: "Canlı Demo",
+    projects_live: "Siteye Git",
     proj_1_desc: "C++, PostgreSQL ve sistem programlama pratikleriyle konteynerize SIS mimarisi.",
     proj_2_desc:
       "CIC-IDS2017 siber güvenlik veri seti üzerinde veri madenciliği teknikleriyle IDS geliştirme.",
