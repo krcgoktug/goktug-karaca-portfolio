@@ -1,7 +1,19 @@
 {
-  "headers": [
+  "redirects": [
     {
       "source": "/resume.pdf",
+      "destination": "/resume",
+      "permanent": false
+    },
+    {
+      "source": "/resume.pdf/",
+      "destination": "/resume",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/Goktug_Karaca_Resume.pdf",
       "headers": [
         {
           "key": "Content-Type",
