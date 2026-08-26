@@ -48,6 +48,33 @@
   </head>
 
   <body>
+    <!-- first visit only: the site shown on a monitor you click to walk into -->
+    <div class="enter" id="enter" hidden aria-hidden="true">
+      <div class="enter-stage" id="enterStage">
+        <div class="rig" id="enterRig">
+          <div class="float">
+            <div class="monitor">
+              <div class="screen" id="enterScreen">
+                <iframe id="enterFrame" src="about:blank" title="" tabindex="-1" scrolling="no"></iframe>
+                <span class="power"></span>
+                <span class="glass"></span>
+              </div>
+              <span class="chin"><i class="led"></i><em>GK — 27"</em></span>
+            </div>
+            <span class="neck"></span>
+            <span class="foot"></span>
+          </div>
+          <div class="desk">
+            <div class="keys" id="enterKeys"></div>
+            <div class="mouse"><i></i></div>
+          </div>
+        </div>
+      </div>
+      <p class="enter-cta meta" id="enterCta">
+        <b></b><span data-i18n="enter_cta">Click anywhere to open the site</span>
+      </p>
+    </div>
+
     <div class="boot" id="boot" aria-hidden="true">
       <div class="boot-row">
         <span class="boot-name">GÖKTUĞ&nbsp;KARACA</span>

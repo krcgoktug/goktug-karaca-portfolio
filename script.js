@@ -196,11 +196,11 @@ const TIMELINE = [
     org: "ITServ Tech · İstanbul",
     en: {
       title: "Software internship",
-      text: ""
+      text: "A short internship spent on TypeScript work."
     },
     tr: {
       title: "Yazılım stajı",
-      text: ""
+      text: "TypeScript tarafında çalıştığım kısa bir staj."
     },
     links: []
   },
@@ -363,6 +363,7 @@ const I18N = {
     ch_resume_v: "PDF, always current",
     ch_booking: "Book 20 minutes",
     ch_booking_v: "Suggest two times by email",
+    enter_cta: "Click anywhere to open the site",
     foot_built: "Hand-written HTML, CSS and JavaScript. No framework.",
     foot_top: "Back to top ↑",
     team: "Team project",
@@ -425,6 +426,7 @@ const I18N = {
     ch_resume_v: "PDF, her zaman güncel",
     ch_booking: "20 dakikalık görüşme ayarla",
     ch_booking_v: "E-postayla iki saat öner",
+    enter_cta: "Siteyi açmak için bir yere tıkla",
     foot_built: "Elle yazılmış HTML, CSS ve JavaScript. Framework yok.",
     foot_top: "Başa dön ↑",
     team: "Ekip projesi",
@@ -1110,6 +1112,128 @@ $$('a[href^="#"]').forEach((a) => {
 });
 
 /* --------------------------------------------------------------------------
+   7.10 Enter: on a first visit the site arrives on a monitor you click through
+   -------------------------------------------------------------------------- */
+
+const embedded =
+  (() => {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
+      return true;
+    }
+  })() || new URLSearchParams(location.search).has("embed");
+
+if (embedded) root.classList.add("embed");
+
+function initEnter() {
+  const box = $("#enter");
+  if (!box) return false;
+
+  const params = new URLSearchParams(location.search);
+  const forced = params.has("intro");
+  let visited = false;
+  try {
+    visited = localStorage.getItem("gk-visited") === "1";
+  } catch (e) {}
+
+  const small = window.innerWidth < 940 || window.innerHeight < 560;
+  if (embedded || still || touch || small || location.hash || (visited && !forced)) {
+    try {
+      localStorage.setItem("gk-visited", "1");
+    } catch (e) {}
+    return false;
+  }
+
+  const stage = $("#enterStage");
+  const rig = $("#enterRig");
+  const screenEl = $("#enterScreen");
+  const frame = $("#enterFrame");
+  const keys = $("#enterKeys");
+
+  let keyMarkup = "";
+  for (let i = 0; i < 57; i++) keyMarkup += i === 40 ? '<i class="lit"></i>' : "<i></i>";
+  keyMarkup += '<i></i><i class="wide"></i><i></i><i></i>';
+  keys.innerHTML = keyMarkup;
+
+  /* the monitor takes the viewport's shape, and the page inside is rendered at
+     full size then scaled down — so the zoom ends at exactly 1:1, pin sharp */
+  const fit = () => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    screenEl.style.setProperty("--ar", vw + " / " + vh);
+    frame.style.width = vw + "px";
+    frame.style.height = vh + "px";
+    const r = screenEl.getBoundingClientRect();
+    frame.style.transform = "scale(" + (r.width / vw).toFixed(4) + ")";
+  };
+
+  box.hidden = false;
+  box.setAttribute("aria-hidden", "false");
+  root.classList.add("locked");
+  fit();
+  /* the screen switches on once the page inside it has actually loaded */
+  const lightUp = () => box.classList.add("lit");
+  frame.addEventListener("load", lightUp);
+  setTimeout(lightUp, 900);
+  frame.src = "/?embed=1";
+  window.addEventListener("resize", fit);
+
+  let walked = false;
+  const walkIn = () => {
+    if (walked) return;
+    walked = true;
+    try {
+      localStorage.setItem("gk-visited", "1");
+    } catch (e) {}
+
+    /* measure the screen straightened, so the camera lands square on it */
+    const keep = rig.style.transition;
+    rig.style.transition = "none";
+    rig.style.transform = "none";
+    const r = screenEl.getBoundingClientRect();
+    rig.style.transform = "";
+    void rig.offsetWidth;
+    rig.style.transition = keep;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scale = vw / r.width;
+    const dx = vw / 2 - (r.left + r.width / 2);
+    const dy = vh / 2 - (r.top + r.height / 2);
+
+    box.classList.add("go");
+    rig.style.transform = "rotateX(0deg) rotateY(0deg)";
+    stage.style.transform =
+      "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + scale.toFixed(4) + ")";
+
+    /* cross-fade only after the zoom has fully landed, so the copy on the
+       monitor and the real page are pixel-identical while both are visible */
+    setTimeout(() => {
+      box.classList.add("done");
+      root.classList.remove("locked");
+      setTimeout(() => {
+        box.hidden = true;
+        frame.src = "about:blank";
+        window.removeEventListener("resize", fit);
+      }, 300);
+    }, 1120);
+  };
+
+  box.addEventListener("pointerdown", walkIn);
+  box.addEventListener("click", walkIn);
+  document.addEventListener("keydown", (e) => {
+    if (walked || box.hidden) return;
+    if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
+      e.preventDefault();
+      walkIn();
+    }
+  });
+
+  return true;
+}
+
+/* --------------------------------------------------------------------------
    8. Boot
    -------------------------------------------------------------------------- */
 
@@ -1125,8 +1249,10 @@ function boot() {
   const bootEl = $("#boot");
   const count = $("#bootCount");
   const bar = $("#bootBar");
+  const intro = initEnter();
 
-  if (still) {
+  /* the counter curtain is for return visits; the first visit gets the desk */
+  if (still || intro || embedded) {
     bootEl.style.display = "none";
     start();
     return;
