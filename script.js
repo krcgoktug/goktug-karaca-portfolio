@@ -1137,11 +1137,10 @@ function initEnter() {
     visited = localStorage.getItem("gk-visited") === "1";
   } catch (e) {}
 
+  /* the flag is only set once the desk has actually been shown — skipping for a
+     small window or a deep link must not burn someone's one first visit */
   const small = window.innerWidth < 940 || window.innerHeight < 560;
   if (embedded || still || touch || small || location.hash || (visited && !forced)) {
-    try {
-      localStorage.setItem("gk-visited", "1");
-    } catch (e) {}
     return false;
   }
 
