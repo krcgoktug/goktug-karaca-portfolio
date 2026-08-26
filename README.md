@@ -43,6 +43,13 @@ Timeline entries live in `TIMELINE`, the stack table in `SPEC`, the hero strip i
 - **Live GitHub data.** On load the page asks the public GitHub API for the repo
   list and replaces each row's year with the real last-push year. If the request
   fails (offline, rate limit) the static years stay — nothing breaks.
+- **The first visit opens on a photograph.** `assets/desk.jpg` is a real night-desk
+  photo (Unsplash, free licence, no attribution required) with the laptop panel
+  measured as fractions of the image in `PANEL` inside `script.js`. The site
+  itself runs in an iframe on that panel at `?embed=1`, rendered at full viewport
+  size and scaled down, so clicking zooms back to exactly 1:1 and hands over to
+  the real page without a jump. Swap the photo by replacing the file and
+  re-measuring `PANEL` (x/y/width/height as fractions of the image).
 - **Reveals are geometry based**, not `IntersectionObserver`, so they also work
   inside embedded and headless contexts where observer callbacks never fire. They
   are re-checked on scroll and on a slow animation-frame tick, so a deep link or a

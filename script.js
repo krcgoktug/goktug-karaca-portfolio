@@ -363,7 +363,7 @@ const I18N = {
     ch_resume_v: "PDF, always current",
     ch_booking: "Book 20 minutes",
     ch_booking_v: "Suggest two times by email",
-    enter_cta: "Click anywhere to open the site",
+    enter_cta: "Click the screen",
     foot_built: "Hand-written HTML, CSS and JavaScript. No framework.",
     foot_top: "Back to top ↑",
     team: "Team project",
@@ -426,7 +426,7 @@ const I18N = {
     ch_resume_v: "PDF, her zaman güncel",
     ch_booking: "20 dakikalık görüşme ayarla",
     ch_booking_v: "E-postayla iki saat öner",
-    enter_cta: "Siteyi açmak için bir yere tıkla",
+    enter_cta: "Ekrana tıkla",
     foot_built: "Elle yazılmış HTML, CSS ve JavaScript. Framework yok.",
     foot_top: "Başa dön ↑",
     team: "Ekip projesi",
@@ -1145,33 +1145,51 @@ function initEnter() {
   }
 
   const stage = $("#enterStage");
-  const rig = $("#enterRig");
+  const photo = $("#enterPhoto");
   const screenEl = $("#enterScreen");
   const frame = $("#enterFrame");
-  const keys = $("#enterKeys");
 
-  let keyMarkup = "";
-  for (let i = 0; i < 57; i++) keyMarkup += i === 40 ? '<i class="lit"></i>' : "<i></i>";
-  keyMarkup += '<i></i><i class="wide"></i><i></i><i></i>';
-  keys.innerHTML = keyMarkup;
+  /* where the laptop's panel sits inside the photograph, as fractions of it */
+  const PANEL = { x: 0.2952, y: 0.2772, w: 0.3826, h: 0.3639 };
 
-  /* the monitor takes the viewport's shape, and the page inside is rendered at
-     full size then scaled down — so the zoom ends at exactly 1:1, pin sharp */
+  /* the panel is trimmed to the viewport's shape and the page inside is
+     rendered at full viewport size, then scaled down to fill it — so walking in
+     is a plain scale back to 1 and lands pin sharp on the real page */
   const fit = () => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    screenEl.style.setProperty("--ar", vw + " / " + vh);
+    const pr = photo.getBoundingClientRect();
+    let w = PANEL.w * pr.width;
+    let h = PANEL.h * pr.height;
+    let x = PANEL.x * pr.width;
+    let y = PANEL.y * pr.height;
+    const va = vw / vh;
+
+    if (w / h > va) {
+      const nw = h * va;
+      x += (w - nw) / 2;
+      w = nw;
+    } else {
+      const nh = w / va;
+      y += (h - nh) / 2;
+      h = nh;
+    }
+
+    screenEl.style.left = x + "px";
+    screenEl.style.top = y + "px";
+    screenEl.style.width = w + "px";
+    screenEl.style.height = h + "px";
     frame.style.width = vw + "px";
     frame.style.height = vh + "px";
-    const r = screenEl.getBoundingClientRect();
-    frame.style.transform = "scale(" + (r.width / vw).toFixed(4) + ")";
+    frame.style.transform = "scale(" + (w / vw).toFixed(5) + ")";
   };
 
   box.hidden = false;
   box.setAttribute("aria-hidden", "false");
   root.classList.add("locked");
   fit();
-  /* the screen switches on once the page inside it has actually loaded */
+
+  /* the laptop wakes up once the page inside it has actually loaded */
   const lightUp = () => box.classList.add("lit");
   frame.addEventListener("load", lightUp);
   setTimeout(lightUp, 900);
@@ -1186,28 +1204,19 @@ function initEnter() {
       localStorage.setItem("gk-visited", "1");
     } catch (e) {}
 
-    /* measure the screen straightened, so the camera lands square on it */
-    const keep = rig.style.transition;
-    rig.style.transition = "none";
-    rig.style.transform = "none";
-    const r = screenEl.getBoundingClientRect();
-    rig.style.transform = "";
-    void rig.offsetWidth;
-    rig.style.transition = keep;
-
     const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const scale = vw / r.width;
-    const dx = vw / 2 - (r.left + r.width / 2);
-    const dy = vh / 2 - (r.top + r.height / 2);
+    const st = stage.getBoundingClientRect();
+    const sr = screenEl.getBoundingClientRect();
+    const scale = vw / sr.width;
+    const tx = -st.left - scale * (sr.left - st.left);
+    const ty = -st.top - scale * (sr.top - st.top);
 
     box.classList.add("go");
-    rig.style.transform = "rotateX(0deg) rotateY(0deg)";
     stage.style.transform =
-      "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + scale.toFixed(4) + ")";
+      "translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px) scale(" + scale.toFixed(5) + ")";
 
-    /* cross-fade only after the zoom has fully landed, so the copy on the
-       monitor and the real page are pixel-identical while both are visible */
+    /* cross-fade only after the zoom has landed, so the copy on the laptop and
+       the real page are pixel-identical while both are visible */
     setTimeout(() => {
       box.classList.add("done");
       root.classList.remove("locked");
@@ -1216,7 +1225,7 @@ function initEnter() {
         frame.src = "about:blank";
         window.removeEventListener("resize", fit);
       }, 300);
-    }, 1120);
+    }, 1220);
   };
 
   box.addEventListener("pointerdown", walkIn);
