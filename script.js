@@ -84,7 +84,7 @@
     contact_email: "Email",
     contact_linkedin: "LinkedIn",
     contact_github: "GitHub",
-    contact_instagram: "Instagram",
+    contact_booking: "Book 20 minutes",
     footer_rights: "All rights reserved."
   },
   tr: {
@@ -172,7 +172,7 @@
     contact_email: "E-posta",
     contact_linkedin: "LinkedIn",
     contact_github: "GitHub",
-    contact_instagram: "Instagram",
+    contact_booking: "20 dakikalık görüşme ayarla",
     footer_rights: "Tüm hakları saklıdır."
   }
 };
