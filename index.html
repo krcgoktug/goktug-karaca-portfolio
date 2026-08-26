@@ -1,600 +1,337 @@
-﻿<!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Göktuğ Karaca — Computer Engineer</title>
     <meta
       name="description"
-      content="Official website of Göktuğ Karaca - Computer Engineering student building software, AI, and cybersecurity projects."
+      content="Göktuğ Karaca — computer engineering student in Istanbul. Backends that stay correct under retries, AI agents that cite their sources, and hardware that has to work offline."
     />
-    <title>Göktuğ Karaca</title>
+    <meta name="author" content="Göktuğ Karaca" />
+    <meta name="theme-color" content="#0c0c0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Göktuğ Karaca — Computer Engineer" />
+    <meta property="og:url" content="https://www.goktugkaraca.com/" />
+    <meta
+      property="og:description"
+      content="Selected work: local RAG agents, idempotent billing engines, an IDS study, a Verilog CPU, and a few things that run on real hardware."
+    />
+    <meta property="og:image" content="https://www.goktugkaraca.com/assets/profile-photo.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="assets/gk-favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syncopate:wght@400;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/svg+xml" href="assets/gk-favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add("js");
+        try {
+          var t = localStorage.getItem("gk-theme");
+          if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+          var l = localStorage.getItem("gk-lang");
+          if (l === "tr" || l === "en") d.setAttribute("lang", l);
+        } catch (e) {}
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          d.classList.add("still");
+        }
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          d.classList.add("touch");
+        }
+      })();
+    </script>
   </head>
-  <body data-theme="dark">
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <div class="bg-grid" aria-hidden="true"></div>
-    <div class="bg-noise" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <div class="container-xxl px-3 px-lg-4">
-        <nav class="navbar navbar-expand-lg navbar-glass">
-          <a class="navbar-brand logo" href="#home">GK</a>
-          <button
-            class="navbar-toggler custom-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="bi bi-list"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="#about" data-i18n="nav_about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#experience" data-i18n="nav_experience">Experience</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#projects" data-i18n="nav_projects">Projects</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#skills" data-i18n="nav_skills">Skills</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#education" data-i18n="nav_education">Education</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/resume" data-i18n="nav_resume">Resume</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#contact" data-i18n="nav_contact">Get in Touch</a>
-              </li>
-            </ul>
+  <body>
+    <div class="boot" id="boot" aria-hidden="true">
+      <div class="boot-row">
+        <span class="boot-name">GÖKTUĞ&nbsp;KARACA</span>
+        <span class="boot-count" id="bootCount">000</span>
+      </div>
+      <div class="boot-bar"><i id="bootBar"></i></div>
+    </div>
 
-            <div class="controls">
-              <div class="btn-group lang-switch" role="group" aria-label="Language selector">
-                <button type="button" class="btn btn-ui btn-sm language-option active" data-lang="en">
-                  EN
-                </button>
-                <button type="button" class="btn btn-ui btn-sm language-option" data-lang="tr">
-                  TR
-                </button>
-              </div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="guides" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <b class="cursor-dot"></b>
+      <b class="cursor-ring"><span id="cursorLabel"></span></b>
+    </div>
 
-              <button type="button" class="btn btn-ui btn-sm theme-toggle-btn is-dark" id="themeToggle" aria-pressed="true">
-                <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
-                <span data-i18n="theme_label">Dark Mode</span>
-              </button>
+    <a class="skip" href="#work">Skip to work</a>
 
-              <a class="btn btn-accent btn-sm" href="mailto:karacagoktug73@gmail.com" data-i18n="contact_me"
-                >Contact Me</a
-              >
-            </div>
-          </div>
-        </nav>
+    <header class="topbar" id="topbar">
+      <a class="brand" href="#top" aria-label="Göktuğ Karaca">
+        <span class="brand-mark">GK</span>
+        <span class="brand-meta"><i>IST</i><time id="clock">--:--:--</time></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#work" data-scramble data-i18n="nav_work">Work</a>
+        <a href="#profile" data-scramble data-i18n="nav_profile">Profile</a>
+        <a href="#track" data-scramble data-i18n="nav_track">Track</a>
+        <a href="#education" data-scramble data-i18n="nav_education">Education</a>
+        <a href="#stack" data-scramble data-i18n="nav_stack">Stack</a>
+        <a href="/resume" data-scramble data-i18n="nav_resume">Résumé</a>
+        <a href="#contact" data-scramble data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="tools">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" class="on">EN</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="tr">TR</button>
+        </div>
+        <button type="button" class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle theme">
+          <span class="theme-dot"></span>
+        </button>
+        <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer" aria-label="Menu">
+          <i></i><i></i>
+        </button>
       </div>
     </header>
 
-    <main class="container-xxl px-3 px-lg-4">
-      <section id="home" class="section hero">
-        <div class="orb orb-cyan" aria-hidden="true"></div>
-        <div class="orb orb-lime" aria-hidden="true"></div>
+    <div class="drawer" id="drawer" hidden>
+      <nav aria-label="Mobile">
+        <a href="#work" data-i18n="nav_work">Work</a>
+        <a href="#profile" data-i18n="nav_profile">Profile</a>
+        <a href="#track" data-i18n="nav_track">Track</a>
+        <a href="#education" data-i18n="nav_education">Education</a>
+        <a href="#stack" data-i18n="nav_stack">Stack</a>
+        <a href="/resume" data-i18n="nav_resume">Résumé</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+    </div>
 
-        <div class="row g-4 align-items-lg-start align-items-center">
-          <div class="col-lg-7 hero-copy-col">
-            <div class="reveal hero-copy-block">
-              <p class="eyebrow" data-i18n="hero_eyebrow">Computer Engineering Student | Istanbul</p>
-              <h1 class="hero-title">Göktuğ <span>Karaca</span></h1>
-              <p class="intro" data-i18n="hero_intro">
-                I design and build reliable digital products across software engineering, AI, and
-                cybersecurity. My focus is turning ideas into systems that are fast, measurable,
-                and production-minded.
-              </p>
-              <div class="d-flex flex-wrap gap-2 mt-4">
-                <a class="btn btn-accent btn-lg" href="#projects" data-i18n="hero_btn_work"
-                  >View My Work</a
-                >
-                <a class="btn btn-outline-ui btn-lg" href="#contact" data-i18n="hero_btn_touch"
-                  >Get in Touch</a
-                >
-              </div>
-              <div class="social-pills mt-3">
-                <a
-                  class="btn btn-ui btn-sm"
-                  href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-karaca-921479249/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <i class="bi bi-linkedin"></i>
-                  LinkedIn
-                </a>
-                <a
-                  class="btn btn-ui btn-sm"
-                  href="https://github.com/krcgoktug"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                >
-                  <i class="bi bi-github"></i>
-                  GitHub
-                </a>
-              </div>
-            </div>
+    <main id="top">
+      <section class="hero">
+        <canvas class="field" id="field" aria-hidden="true"></canvas>
 
-            <div class="row g-3 mt-2 reveal">
-              <div class="col-md-4">
-                <div class="card metric-card h-100">
-                  <div class="card-body">
-                    <span class="metric-value">11+</span>
-                    <span class="metric-label" data-i18n="hero_metric_projects">Public Projects</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card metric-card h-100">
-                  <div class="card-body">
-                    <span class="metric-value">4</span>
-                    <span class="metric-label" data-i18n="hero_metric_domains">Core Domains</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card metric-card h-100">
-                  <div class="card-body">
-                    <span class="metric-value">2023-2027</span>
-                    <span class="metric-label" data-i18n="hero_metric_journey">BSc Journey</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <article class="card ui-card status-card hero-focus-card h-100">
-                  <div class="card-body">
-                    <p class="status-title mb-2" data-i18n="hero_focus_title">Current Focus</p>
-                    <p class="mb-0" data-i18n="hero_focus_text">
-                      Scalable backend systems, data-driven AI, and clean frontend delivery.
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-5 hero-media-col">
-            <div class="profile-frame reveal">
-              <img
-                src="assets/profile-photo.jpg"
-                alt="Portrait of Göktuğ Karaca"
-                class="profile-photo"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="about_kicker">About Me</p>
-          <h2 data-i18n="about_title">Engineering with Vision, Discipline, and Impact</h2>
-        </div>
-        <article class="card ui-card reveal mt-3">
-          <div class="card-body">
-            <p class="section-text mb-3" data-i18n="about_p1">
-              I am a Computer Engineering student who treats every project as a real product
-              challenge. I do not just write code for assignments; I architect solutions, evaluate
-              tradeoffs, and iterate until the result is polished. My approach blends technical
-              depth with product thinking: identify the core problem, build the fastest reliable
-              solution, and keep improving with measurable outcomes.
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="meta hero-meta" data-i18n="hero_meta">
+              Computer engineering · İstanbul · BSc 2027
             </p>
-            <p class="section-text mb-0" data-i18n="about_p2">
-              I actively work across different stacks, from low-level and backend systems to modern
-              web interfaces and AI simulations. This range helps me connect big-picture strategy
-              with implementation details, which is the skill set I bring to teams and future
-              internships.
+
+            <h1 class="display" aria-label="Göktuğ Karaca">
+              <span class="line" data-split>GÖKTUĞ</span>
+              <span class="line hollow" data-split>KARACA</span>
+            </h1>
+
+            <p class="lede" data-i18n="hero_lede">
+              I build backends that stay correct when the client retries, AI agents that cite their
+              sources, and devices that keep reporting when the network doesn't.
+            </p>
+
+            <p class="hero-go">
+              <a class="go-work" href="#work" data-cursor="work">
+                <span data-i18n="hero_cta_work">See the work</span><i aria-hidden="true">↓</i>
+              </a>
+              <a class="go-mail" href="mailto:karacagoktug73@gmail.com" data-cursor="mail"
+                >karacagoktug73@gmail.com</a
+              >
+            </p>
+
+            <ul class="interests meta" id="interests"></ul>
+          </div>
+
+          <figure class="plate">
+            <div class="plate-frame">
+              <img src="assets/profile-photo.jpg" alt="Göktuğ Karaca" width="720" height="960" />
+              <span class="plate-scan" aria-hidden="true"></span>
+              <i class="crop tl"></i><i class="crop tr"></i><i class="crop bl"></i><i class="crop br"></i>
+            </div>
+            <figcaption class="meta">
+              <span>FIG. 01</span>
+              <span data-i18n="plate_caption">Göktuğ Karaca, İstanbul</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="scroll-cue meta" aria-hidden="true">
+          <span data-i18n="scroll_cue">Scroll</span>
+          <i></i>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+
+      <section class="section" id="work">
+        <div class="section-head">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title" data-scramble data-i18n="work_title">Selected work</h2>
+          <p class="sec-note" data-i18n="work_note">
+            Everything below is a repository I actually pushed. Hover a row to read it, click to open
+            it on GitHub.
+          </p>
+        </div>
+
+        <div class="work-bar">
+          <div class="filters" id="filters"></div>
+        </div>
+
+        <ol class="work" id="workList"></ol>
+
+        <p class="work-empty meta" id="workEmpty" hidden data-i18n="work_empty">Nothing in this filter yet.</p>
+
+        <a class="all-repos magnet" href="https://github.com/krcgoktug" target="_blank" rel="noreferrer" data-cursor="github">
+          <span data-i18n="work_all">All repositories on GitHub</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18L18 6m0 0H9m9 0v9" /></svg>
+        </a>
+      </section>
+
+      <div class="preview" id="preview" aria-hidden="true">
+        <div class="preview-emblem" id="previewEmblem"></div>
+        <div class="preview-body">
+          <span class="meta" id="previewKind"></span>
+          <p id="previewText"></p>
+          <span class="meta preview-open" data-i18n="preview_open">Open repository ↗</span>
+        </div>
+      </div>
+
+      <section class="section" id="profile">
+        <div class="section-head">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title" data-scramble data-i18n="profile_title">Profile</h2>
+          <p class="sec-note" data-i18n="profile_note">Who is writing all of this, and how.</p>
+        </div>
+
+        <div class="profile-grid">
+          <div class="prose">
+            <p class="drop" data-i18n="profile_p1">
+              Most of what I know came from shipping things that had to survive contact with
+              something real — a retrying client, a dataset that did not cooperate, a board with no
+              internet — rather than from a lecture hall.
+            </p>
+            <p data-i18n="profile_p2">
+              The pattern in my work is narrow scope, honest verification. A billing engine is only
+              interesting if it survives twelve concurrent retries. A retrieval agent is only useful
+              if it shows which chunk it answered from. So I build the smallest version that can be
+              proven, prove it, and write down where it breaks.
+            </p>
+            <p data-i18n="profile_p3">
+              The work I go looking for sits between three things: devices that have to report from
+              somewhere with bad signal, models that have to justify their answers, and the mobile
+              or TypeScript surface that makes both readable to a person. Verilog on one end,
+              FastAPI in the middle, a phone on the other — knowing what the machine is actually
+              doing makes me better three layers up.
             </p>
           </div>
-        </article>
-      </section>
 
-      <section id="experience" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="exp_kicker">Experience</p>
-          <h2 data-i18n="exp_title">Project-Driven Engineering Experience</h2>
-        </div>
-        <div class="row g-3 mt-1">
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <p class="card-kicker" data-i18n="exp_software">Software Engineering</p>
-                <h3 data-i18n="exp_software_title">System Programming Term Project</h3>
-                <p class="mb-0" data-i18n="exp_software_body">
-                  Built a containerized Student Information System with a high-performance C++
-                  backend, PostgreSQL persistence, and Dockerized deployment flow.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <p class="card-kicker" data-i18n="exp_cyber">Cybersecurity + Data Mining</p>
-                <h3 data-i18n="exp_cyber_title">Intrusion Detection Research Project</h3>
-                <p class="mb-0" data-i18n="exp_cyber_body">
-                  Developed an IDS pipeline on CIC-IDS2017 data to explore detection quality,
-                  signal features, and model-level decision behavior.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <p class="card-kicker" data-i18n="exp_ai">Applied AI</p>
-                <h3 data-i18n="exp_ai_title">Autonomous AI Parking Simulation</h3>
-                <p class="mb-0" data-i18n="exp_ai_body">
-                  Implemented and compared A* and Q-Learning in a dynamic 15x15 parking
-                  environment to evaluate planning versus learning-based navigation.
-                </p>
-              </div>
-            </article>
-          </div>
+          <aside class="facts">
+            <dl>
+              <div><dt class="meta" data-i18n="fact_based">Based in</dt><dd>İstanbul, TR</dd></div>
+              <div><dt class="meta" data-i18n="fact_now">Currently</dt><dd data-i18n="fact_now_v">Local AI agents and IoT telemetry</dd></div>
+              <div><dt class="meta" data-i18n="fact_focus">Focus</dt><dd data-i18n="fact_focus_v">Backend · IoT · Applied AI · Mobile</dd></div>
+              <div><dt class="meta" data-i18n="fact_langs">Languages</dt><dd data-i18n="fact_langs_v">Turkish, English</dd></div>
+              <div><dt class="meta" data-i18n="fact_status">Status</dt><dd class="live" data-i18n="fact_status_v">Open to 2026/27 internships</dd></div>
+            </dl>
+          </aside>
         </div>
       </section>
 
-      <section id="projects" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="projects_kicker">Projects</p>
-          <h2 data-i18n="projects_title">Selected Work on GitHub</h2>
+      <section class="section" id="track">
+        <div class="section-head">
+          <span class="sec-num">03</span>
+          <h2 class="sec-title" data-scramble data-i18n="track_title">Track record</h2>
+          <p class="sec-note" data-i18n="track_note">Programs, coursework, and the things they produced.</p>
         </div>
-        <div class="row g-3 mt-1">
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>System-Programming-Term-Project</h3>
-                <p data-i18n="proj_1_desc">
-                  Containerized SIS architecture with C++, PostgreSQL, and practical system
-                  programming patterns.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/System-Programming-Term-Project"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>Data-Mining-for-Cybersecurity-Project</h3>
-                <p data-i18n="proj_2_desc">
-                  IDS development with data mining techniques on CIC-IDS2017 cybersecurity dataset.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/Data-Mining-for-Cybersecurity-Project"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>Autonomous-AI-Parking-Simulation</h3>
-                <p data-i18n="proj_3_desc">
-                  Comparative simulation study of A* search and Q-Learning under dynamic
-                  constraints.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/Autonomous-AI-Parking-Simulation"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>RATEFLIX</h3>
-                <p data-i18n="proj_4_desc">
-                  Web-based movie and series tracking platform built as an internet programming term
-                  project.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/RATEFLIX"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                  <a
-                    class="repo-link live-link"
-                    href="https://rateflix-lime.vercel.app/login"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_live"
-                    >Visit Website</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>web-autorent</h3>
-                <p data-i18n="proj_5_desc">
-                  Modern PHP and SQLite car rental demo with dynamic pricing and a conversion-ready
-                  user interface.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/web-autorent"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>Budgee</h3>
-                <p data-i18n="proj_6_desc">
-                  Personal finance tracking direction focused on clean user experience and practical
-                  spending insights.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/budgee-1"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>Digital-System-Design-CPU-Chip</h3>
-                <p data-i18n="proj_7_desc">
-                  Digital System Design course project featuring CPU chip architecture, ALU/control
-                  path planning, and hardware-level logic design.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/digital-system-design-cpu-chip"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>LuminaLib</h3>
-                <p data-i18n="proj_8_desc">
-                  Advanced Java OOP library management system with role-based user hierarchy,
-                  thread-safe catalog flow, automated fines, and layered search.
-                </p>
-                <div class="project-links">
-                  <a
-                    class="repo-link"
-                    href="https://github.com/krcgoktug/luminalib"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-i18n="projects_repo"
-                    >Repository</a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card project-card h-100 reveal">
-              <div class="card-body">
-                <h3>NexGen ERP</h3>
-                <p data-i18n="proj_9_desc">
-                  Modular ERP/CRM concept project for business automation, normalized relational data
-                  models, and SQL query optimization on inventory-client workflows.
-                </p>
-                <div class="project-links">
-                  <span class="project-note" data-i18n="projects_course_only">Course Project</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
+
+        <ol class="timeline" id="timeline"></ol>
       </section>
 
-      <section id="skills" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="skills_kicker">Skills</p>
-          <h2 data-i18n="skills_title">Technical Stack</h2>
+      <section class="section" id="education">
+        <div class="section-head">
+          <span class="sec-num">04</span>
+          <h2 class="sec-title" data-scramble data-i18n="edu_title">Education</h2>
+          <p class="sec-note" data-i18n="edu_note">
+            Where the degree comes from, and what the coursework turned into.
+          </p>
         </div>
-        <div class="row g-3 mt-1">
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <h3 data-i18n="skills_languages">Languages</h3>
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                  <span class="badge-chip">C</span>
-                  <span class="badge-chip">C++</span>
-                  <span class="badge-chip">Java</span>
-                  <span class="badge-chip">Kotlin</span>
-                  <span class="badge-chip">Python</span>
-                  <span class="badge-chip">JavaScript</span>
-                  <span class="badge-chip">PHP</span>
-                  <span class="badge-chip">SQL</span>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <h3 data-i18n="skills_web">Web & App</h3>
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                  <span class="badge-chip">HTML5</span>
-                  <span class="badge-chip">CSS3</span>
-                  <span class="badge-chip" data-i18n="skill_chip_rest">REST APIs</span>
-                  <span class="badge-chip" data-i18n="skill_chip_responsive">Responsive UI</span>
-                  <span class="badge-chip" data-i18n="skill_chip_frontend">Front-end Architecture</span>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <article class="card ui-card h-100 reveal">
-              <div class="card-body">
-                <h3 data-i18n="skills_data">Data & Infrastructure</h3>
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                  <span class="badge-chip">PostgreSQL</span>
-                  <span class="badge-chip">SQLite</span>
-                  <span class="badge-chip">Docker</span>
-                  <span class="badge-chip">Git & GitHub</span>
-                  <span class="badge-chip" data-i18n="skill_chip_linux">Linux Tooling</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
+
+        <ol class="timeline" id="education-list"></ol>
       </section>
 
-      <section id="education" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="education_kicker">Education</p>
-          <h2 data-i18n="education_title">Academic Background</h2>
+      <section class="section" id="stack">
+        <div class="section-head">
+          <span class="sec-num">05</span>
+          <h2 class="sec-title" data-scramble data-i18n="stack_title">Stack</h2>
+          <p class="sec-note" data-i18n="stack_note">Tools I have actually used in a finished project, not a tutorial.</p>
         </div>
-        <article class="card ui-card reveal mt-3">
-          <div class="card-body">
-            <h3>Fenerbahce University</h3>
-            <p class="mb-2" data-i18n="education_degree">BSc in Computer Engineering (CENG), 3rd Year</p>
-            <p class="mb-0" data-i18n="education_date">September 2023 - June 2027</p>
-          </div>
-        </article>
+
+        <div class="spec" id="spec"></div>
       </section>
 
-      <section id="contact" class="section">
-        <div class="section-head reveal">
-          <p class="section-kicker" data-i18n="contact_kicker">Get in Touch</p>
-          <h2 data-i18n="contact_title">Let's Build Something That Stands Out</h2>
+      <section class="section" id="contact">
+        <div class="section-head">
+          <span class="sec-num">06</span>
+          <h2 class="sec-title" data-scramble data-i18n="contact_title">Contact</h2>
+          <p class="sec-note" data-i18n="contact_note">Internships, collaborations, or a question about any repo above.</p>
         </div>
-        <p class="section-text reveal mt-3" data-i18n="contact_copy">
-          I am open to internships, project collaborations, and engineering opportunities where I
-          can create meaningful impact.
-        </p>
-        <div class="row g-3 mt-1">
-          <div class="col-md-6">
-            <a class="card ui-card contact-card h-100 reveal" href="mailto:karacagoktug73@gmail.com">
-              <div class="card-body">
-                <span class="contact-label" data-i18n="contact_email">Email</span>
-                <span class="contact-value">karacagoktug73@gmail.com</span>
-              </div>
+
+        <a class="shout magnet" href="mailto:karacagoktug73@gmail.com" data-cursor="mail">
+          <span class="shout-line" data-split>LET'S</span>
+          <span class="shout-line hollow" data-split>BUILD</span>
+          <span class="shout-mail meta">karacagoktug73@gmail.com</span>
+        </a>
+
+        <ul class="channels">
+          <li>
+            <a href="mailto:karacagoktug73@gmail.com">
+              <span class="ch-key meta">Email</span>
+              <span class="ch-val">karacagoktug73@gmail.com</span>
+              <span class="ch-go" aria-hidden="true">↗</span>
             </a>
-          </div>
-          <div class="col-md-6">
-            <a
-              class="card ui-card contact-card h-100 reveal"
-              href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-karaca-921479249/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div class="card-body">
-                <span class="contact-label" data-i18n="contact_linkedin">LinkedIn</span>
-                <span class="contact-value">in/goktug-karaca-921479249</span>
-              </div>
+          </li>
+          <li>
+            <a href="https://github.com/krcgoktug" target="_blank" rel="noreferrer">
+              <span class="ch-key meta">GitHub</span>
+              <span class="ch-val">github.com/krcgoktug</span>
+              <span class="ch-go" aria-hidden="true">↗</span>
             </a>
-          </div>
-          <div class="col-md-6">
-            <a
-              class="card ui-card contact-card h-100 reveal"
-              href="https://github.com/krcgoktug"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div class="card-body">
-                <span class="contact-label" data-i18n="contact_github">GitHub</span>
-                <span class="contact-value">github.com/krcgoktug</span>
-              </div>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-karaca-921479249/" target="_blank" rel="noreferrer">
+              <span class="ch-key meta">LinkedIn</span>
+              <span class="ch-val">in/goktug-karaca</span>
+              <span class="ch-go" aria-hidden="true">↗</span>
             </a>
-          </div>
-          <div class="col-md-6">
-            <a
-              class="card ui-card contact-card h-100 reveal"
-              href="https://instagram.com/krcgoktug"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div class="card-body">
-                <span class="contact-label" data-i18n="contact_instagram">Instagram</span>
-                <span class="contact-value">instagram.com/krcgoktug</span>
-              </div>
+          </li>
+          <li>
+            <a href="/resume">
+              <span class="ch-key meta" data-i18n="ch_resume">Résumé</span>
+              <span class="ch-val" data-i18n="ch_resume_v">PDF, always current</span>
+              <span class="ch-go" aria-hidden="true">↗</span>
             </a>
-          </div>
-        </div>
+          </li>
+          <li>
+            <a href="https://instagram.com/krcgoktug" target="_blank" rel="noreferrer">
+              <span class="ch-key meta">Instagram</span>
+              <span class="ch-val">@krcgoktug</span>
+              <span class="ch-go" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container-xxl px-3 px-lg-4">
-        <p class="mb-0">© <span id="year"></span> Göktuğ Karaca. <span data-i18n="footer_rights">All rights reserved.</span></p>
+    <footer class="site-foot">
+      <div class="foot-name" aria-hidden="true"><span>GÖKTUĞ KARACA</span></div>
+      <div class="foot-row meta">
+        <span>© <b id="year">2026</b> Göktuğ Karaca</span>
+        <span data-i18n="foot_built">Hand-written HTML, CSS and JavaScript. No framework.</span>
+        <button type="button" class="to-top" id="toTop" data-i18n="foot_top">Back to top ↑</button>
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
-

@@ -1,18 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Göktuğ Karaca | Resume</title>
-    <meta name="description" content="Göktuğ Karaca resume preview page." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Göktuğ Karaca — Résumé</title>
+    <meta name="description" content="Göktuğ Karaca résumé." />
+    <link rel="icon" type="image/svg+xml" href="/assets/gk-favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Space+Mono:wght@400;700&display=swap"
+    />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("gk-theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
     <style>
       :root {
-        --bg: #071123;
-        --bg-soft: #0b1930;
-        --line: rgba(117, 227, 255, 0.26);
-        --text: #dce8ff;
-        --muted: #8ea4c8;
-        --accent: #24dcff;
+        --paper: #0c0c0d;
+        --paper-2: #141415;
+        --ink: #f3efe4;
+        --ink-2: #9e988c;
+        --rule: rgba(243, 239, 228, 0.18);
+        --accent: #ff4d17;
+        --accent-ink: #0c0c0d;
+      }
+
+      [data-theme="light"] {
+        --paper: #efebe0;
+        --paper-2: #e4dfd2;
+        --ink: #14120f;
+        --ink-2: #6b655a;
+        --rule: rgba(20, 18, 15, 0.2);
+        --accent: #dd3c00;
+        --accent-ink: #fbf8f1;
       }
 
       * {
@@ -21,123 +47,96 @@
 
       body {
         margin: 0;
-        font-family: "Segoe UI", system-ui, sans-serif;
         min-height: 100vh;
-        color: var(--text);
-        background:
-          radial-gradient(circle at 85% 12%, rgba(36, 220, 255, 0.2), transparent 34%),
-          linear-gradient(160deg, #04070f 0%, var(--bg) 46%, var(--bg-soft) 100%);
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        padding: clamp(0.9rem, 3vw, 2rem);
+        gap: 0.9rem;
       }
 
-      .layout {
-        width: min(1180px, 96vw);
-        margin: 18px auto;
-      }
-
-      .topbar {
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 12px 14px;
+      .bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        background: rgba(8, 18, 33, 0.82);
-        backdrop-filter: blur(8px);
+        gap: 1rem;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 0.9rem;
       }
 
-      .title {
+      h1 {
         margin: 0;
-        font-size: clamp(1rem, 2vw, 1.18rem);
-        font-weight: 700;
-        letter-spacing: 0.02em;
+        font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
       }
 
       .actions {
         display: flex;
-        gap: 8px;
+        gap: 0.45rem;
         flex-wrap: wrap;
       }
 
       .btn {
-        border: 1px solid var(--line);
-        color: var(--text);
-        background: rgba(10, 24, 45, 0.9);
-        border-radius: 999px;
-        padding: 8px 12px;
-        font-weight: 600;
+        font-family: "Space Mono", ui-monospace, Consolas, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
         text-decoration: none;
-        font-size: 0.9rem;
+        color: var(--ink);
+        border: 1px solid var(--rule);
+        padding: 0.55rem 0.9rem;
+        transition: background 240ms, color 240ms, border-color 240ms;
       }
 
       .btn:hover {
+        background: var(--accent);
         border-color: var(--accent);
-        color: var(--accent);
+        color: var(--accent-ink);
       }
 
       .viewer {
-        margin-top: 14px;
-        border: 1px solid var(--line);
-        border-radius: 16px;
+        flex: 1;
+        min-height: 70vh;
+        border: 1px solid var(--rule);
+        background: var(--paper-2);
         overflow: hidden;
-        height: calc(100vh - 122px);
-        min-height: 640px;
-        background: #0b1320;
       }
 
       .viewer iframe {
         width: 100%;
         height: 100%;
         border: 0;
+        display: block;
       }
 
       .fallback {
-        padding: 22px;
-        color: var(--muted);
-      }
-
-      @media (max-width: 768px) {
-        .layout {
-          width: 94vw;
-          margin: 12px auto;
-        }
-
-        .topbar {
-          border-radius: 12px;
-          padding: 10px;
-        }
-
-        .viewer {
-          min-height: 76vh;
-          height: 76vh;
-          border-radius: 12px;
-        }
-
-        .btn {
-          font-size: 0.84rem;
-          padding: 7px 10px;
-        }
+        padding: 1.6rem;
+        color: var(--ink-2);
       }
     </style>
   </head>
   <body>
-    <main class="layout">
-      <header class="topbar">
-        <h1 class="title">Göktuğ Karaca - Resume</h1>
-        <div class="actions">
-          <a class="btn" href="/">Back to Website</a>
+    <header class="bar">
+      <h1>Göktuğ Karaca — Résumé</h1>
+      <div class="actions">
+        <a class="btn" href="/">← Back to site</a>
+        <a class="btn" href="/Goktug_Karaca_Resume.pdf" target="_blank" rel="noreferrer">Open PDF ↗</a>
+        <a class="btn" href="/Goktug_Karaca_Resume.pdf" download>Download</a>
+      </div>
+    </header>
+
+    <main class="viewer" aria-label="Résumé PDF">
+      <iframe src="/Goktug_Karaca_Resume.pdf#view=FitH" title="Göktuğ Karaca résumé PDF">
+        <div class="fallback">
+          Your browser cannot display the PDF inline.
           <a class="btn" href="/Goktug_Karaca_Resume.pdf" target="_blank" rel="noreferrer">Open PDF</a>
         </div>
-      </header>
-
-      <section class="viewer" aria-label="Resume PDF Viewer">
-        <iframe src="/Goktug_Karaca_Resume.pdf#view=FitH" title="Göktuğ Karaca Resume PDF">
-          <div class="fallback">
-            Your browser cannot display the PDF inline.
-            <a class="btn" href="/Goktug_Karaca_Resume.pdf" target="_blank" rel="noreferrer">Open PDF</a>
-          </div>
-        </iframe>
-      </section>
+      </iframe>
     </main>
   </body>
 </html>

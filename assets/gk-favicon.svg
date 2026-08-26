@@ -1,24 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GK">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#041325" />
-      <stop offset="100%" stop-color="#092244" />
-    </linearGradient>
-    <linearGradient id="ink" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#22d9ff" />
-      <stop offset="100%" stop-color="#b7ff56" />
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" />
+  <rect width="64" height="64" fill="#ff4d17" />
+  <rect x="4.5" y="4.5" width="55" height="55" fill="none" stroke="#0c0c0d" stroke-width="1.5" />
   <text
     x="32"
-    y="39"
+    y="43"
     text-anchor="middle"
-    font-family="Space Grotesk, Segoe UI, Arial, sans-serif"
-    font-size="23"
-    font-weight="700"
-    letter-spacing="1.6"
-    fill="url(#ink)"
+    font-family="Arial Black, Segoe UI, Helvetica, sans-serif"
+    font-size="30"
+    font-weight="900"
+    letter-spacing="-1"
+    fill="#0c0c0d"
   >
     GK
   </text>
