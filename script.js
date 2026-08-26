@@ -1134,7 +1134,10 @@ function initEnter() {
   const forced = params.has("intro");
   let visited = false;
   try {
-    visited = localStorage.getItem("gk-visited") === "1";
+    /* sessionStorage, not localStorage: the desk comes back on a fresh visit,
+       but a refresh in the same tab goes straight to the page */
+    visited = sessionStorage.getItem("gk-visited") === "1";
+    localStorage.removeItem("gk-visited"); /* flag left by an earlier build */
   } catch (e) {}
 
   /* the flag is only set once the desk has actually been shown — skipping for a
@@ -1201,7 +1204,7 @@ function initEnter() {
     if (walked) return;
     walked = true;
     try {
-      localStorage.setItem("gk-visited", "1");
+      sessionStorage.setItem("gk-visited", "1");
     } catch (e) {}
 
     const vw = window.innerWidth;
