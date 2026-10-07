@@ -56,7 +56,7 @@ const items = [
     class="fixed left-1/2 -translate-x-1/2 z-[100] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 md:w-auto w-[90%]"
   >
     <div class="container mx-auto flex items-center gap-4 p-3 md:px-6">
-      <ul class="flex w-full justify-between md:justify-center md:gap-7 gap-4">
+      <ul class="flex w-full justify-between md:justify-center md:gap-7 gap-2">
         {
           items.map((item) => (
             <li class={item.onMobile ? "flex-1 md:flex-none" : "hidden md:block"}>
@@ -74,12 +74,15 @@ const items = [
           ))
         }
 
-        <li class="hidden md:block">
+        <li class="flex-1 md:flex-none">
           <a
             href="/resume"
-            class="flex items-center text-[var(--white-icon)] hover:text-white transition-colors text-sm whitespace-nowrap h-full"
+            class="flex flex-col items-center gap-1 text-[var(--white-icon)] hover:text-white transition-colors text-[11px] md:text-sm whitespace-nowrap"
           >
-            {t.nav_resume}
+            <span class="md:hidden flex items-center justify-center w-6 h-6">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"></path></svg>
+            </span>
+            <span>{t.nav_resume}</span>
           </a>
         </li>
 

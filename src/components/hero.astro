@@ -40,7 +40,7 @@ const facts = [
 
 <section id="home" class="text-[var(--white)] mt-16 md:mt-0">
   <div class="max-w-5xl mx-auto md:pt-32 md:pb-16 pb-12">
-    <div class="grid lg:grid-cols-[1.35fr_0.65fr] gap-10 lg:gap-12 items-start">
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[1.35fr_0.65fr] gap-10 lg:gap-12 items-start">
       <div class="space-y-5">
         <p class="text-sm md:text-base text-[var(--white-icon)]">
           {t.hero_meta}
@@ -71,7 +71,7 @@ const facts = [
           }
         </ul>
 
-        <div class="flex items-center gap-2 pt-3">
+        <div class="flex flex-wrap items-center gap-2 pt-3">
           {
             socials.map((s) => (
               <a
