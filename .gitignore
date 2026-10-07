@@ -4,3 +4,9 @@ dist/
 .env
 .vercel
 .DS_Store
+
+# personal CV source, kept locally and never published
+Goktug_Karaca_CV.docx
+Goktug_Karaca_CV.pdf
+cv_assets/
+generate_cv.py
