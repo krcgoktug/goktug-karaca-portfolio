@@ -220,60 +220,31 @@ export const PROJECTS: Project[] = [
 
 export const TIMELINE: LedgerRow[] = [
   {
-    when: "Aug — Sep 2026",
-    when_tr: "Ağu — Eyl 2026",
-    org: "ITServ Tech · İstanbul",
+    when: "Aug 2026 — now",
+    when_tr: "Ağu 2026 — bugün",
+    now: true,
+    org: "ITserv Technology · İstanbul",
     en: {
-      title: "Software internship",
-      text: "A short internship spent on TypeScript work."
+      title: "Software developer — internship",
+      text: "Building a project operations platform in Next.js, React and TypeScript: task workflows that scale, interactive planning tools, validation that holds at the edges, and a relational PostgreSQL schema behind it with automated quality checks and a locked-down Supabase integration."
     },
     tr: {
-      title: "Yazılım stajı",
-      text: "TypeScript tarafında çalıştığım kısa bir staj."
+      title: "Yazılım geliştirici — staj",
+      text: "Next.js, React ve TypeScript ile bir proje operasyon platformu: ölçeklenebilir görev akışları, etkileşimli planlama araçları, uç durumlarda da tutan doğrulama ve arkasında otomatik kalite kontrolleri ile sıkılaştırılmış bir Supabase entegrasyonu olan ilişkisel PostgreSQL şeması."
     },
     links: []
   },
   {
-    when: "Jul 2026 — now",
-    when_tr: "Tem 2026 — bugün",
-    now: true,
-    org: "ZENO Bilişim ve Danışmanlık · İstanbul",
-    en: {
-      title: "Software developer — internship, now voluntary",
-      text: "CRM work on the consultancy side: Microsoft Dynamics implementation, integration between it and the systems around it, and the reporting that comes with it — plus IoT projects where the hard part is getting telemetry out of a site with almost no connectivity. It started as a summer internship; I have stayed on as a volunteer since it ended."
-    },
-    tr: {
-      title: "Yazılım geliştirici — staj, şimdi gönüllü",
-      text: "Danışmanlık tarafında CRM işleri: Microsoft Dynamics kurulumu, çevresindeki sistemlerle entegrasyonu ve beraberinde gelen raporlama — bir de zor kısmı neredeyse hiç bağlantı olmayan bir sahadan telemetriyi dışarı çıkarmak olan IoT projeleri. Yaz stajı olarak başladı; staj bittiğinden beri gönüllü olarak devam ediyorum."
-    },
-    links: []
-  },
-  {
-    when: "Jul — Aug 2026",
-    when_tr: "Tem — Ağu 2026",
-    org: "Microsoft · AI Innovators · Remote",
-    en: {
-      title: "AI Innovators Program participant",
-      text: "Project-based AI work built on LLM and retrieval-augmented generation, delivered as a production-minded MVP in four weeks: local retrieval over your two most recent browser tabs, answers that show the chunk they came from, and a synthesis mode that turns two unrelated tabs into one project spec."
-    },
-    tr: {
-      title: "AI Innovators programı katılımcısı",
-      text: "LLM ve retrieval-augmented generation üzerine kurulu proje tabanlı yapay zekâ çalışması, dört haftada üretime bakan bir MVP olarak: en son açtığın iki sekme üzerinde yerel retrieval, hangi parçadan geldiğini gösteren cevaplar ve alakasız iki sekmeyi tek bir proje taslağına çeviren bir sentez modu."
-    },
-    links: [{ label: "TabForge Agent", url: GH + "tabforge-agent" }]
-  },
-  {
-    when: "Jul 2026 — now",
-    when_tr: "Tem 2026 — bugün",
-    now: true,
+    when: "Jul — Sep 2026",
+    when_tr: "Tem — Eyl 2026",
     org: "FlyRank AI · Remote",
     en: {
       title: "Backend AI engineering intern",
-      text: "Shipped deliverables every week instead of exercises: a JWT auth API, a usage metering and billing engine that holds under duplicate webhooks and concurrent retries, a robots-first scraper, and a workflow → MCP → agent case study whose conclusion was that the agent was the worse option."
+      text: "A remote programme built on weekly deliverables rather than coursework. I finished both the Backend AI Engineering and AI Fluency tracks, shipped something every week — a JWT auth API, a robots-first scraper, a workflow → MCP → agent case study — and closed with a reviewed capstone: a usage metering and billing engine that holds under duplicate webhooks and concurrent retries."
     },
     tr: {
       title: "Backend AI engineering stajyeri",
-      text: "Alıştırma yerine her hafta teslim edilen işler: JWT auth API'si, tekrar eden webhook'lar ve eşzamanlı denemeler altında bozulmayan bir kullanım ölçüm/faturalama motoru, robots.txt önceliğine uyan bir tarayıcı ve sonucu 'ajan daha kötü çıktı' olan bir workflow → MCP → ajan vaka çalışması."
+      text: "Ders yerine haftalık teslimler üzerine kurulu uzaktan bir program. Backend AI Engineering ve AI Fluency hatlarının ikisini de tamamladım, her hafta bir iş teslim ettim — JWT auth API'si, robots.txt önceliğine uyan bir tarayıcı, workflow → MCP → ajan vaka çalışması — ve değerlendirilen bitirme projesiyle kapattım: tekrar eden webhook'lar ve eşzamanlı denemeler altında bozulmayan bir kullanım ölçüm/faturalama motoru."
     },
     links: [
       { label: "Billing engine", url: GH + "flyrank-capstone-metering-billing" },
@@ -282,16 +253,44 @@ export const TIMELINE: LedgerRow[] = [
     ]
   },
   {
-    when: "Jul — Aug 2025",
-    when_tr: "Tem — Ağu 2025",
-    org: "DenizBank · İstanbul",
+    when: "Jul — Aug 2026",
+    when_tr: "Tem — Ağu 2026",
+    org: "Microsoft · AI Innovators · Remote",
     en: {
-      title: "Android developer",
-      text: "A seasonal programme on the mobile side: an AI-integrated personal finance application for a smartwatch, where every interaction had to survive a screen you can cover with a thumb."
+      title: "AI Innovators programme participant",
+      text: "A local RAG agent that reads the two browser tabs you last looked at and turns their combined context into a new software project, with every answer traceable to the chunk it came from. Python, FastAPI, Playwright, LangChain and Microsoft Foundry Local."
     },
     tr: {
-      title: "Android geliştirici",
-      text: "Mobil tarafta dönemsel bir program: akıllı saat için yapay zekâ entegre bir kişisel finans uygulaması — her etkileşimin başparmakla kapatılabilecek bir ekranda çalışması gerekiyordu."
+      title: "AI Innovators programı katılımcısı",
+      text: "En son baktığın iki sekmeyi okuyup ikisinin birleşik bağlamından yeni bir yazılım projesi çıkaran, her cevabı geldiği parçaya kadar izlenebilen yerel bir RAG ajanı. Python, FastAPI, Playwright, LangChain ve Microsoft Foundry Local."
+    },
+    links: [{ label: "TabForge Agent", url: GH + "tabforge-agent" }]
+  },
+  {
+    when: "Jun — Aug 2026",
+    when_tr: "Haz — Ağu 2026",
+    org: "ZENO Bilişim ve Danışmanlık · İstanbul",
+    en: {
+      title: "Software developer — internship",
+      text: "CRM work on the consultancy side: Microsoft Dynamics implementation, integration between it and the systems around it, and the reporting that comes with it — plus IoT projects where the hard part is getting telemetry out of a site with almost no connectivity."
+    },
+    tr: {
+      title: "Yazılım geliştirici — staj",
+      text: "Danışmanlık tarafında CRM işleri: Microsoft Dynamics kurulumu, çevresindeki sistemlerle entegrasyonu ve beraberinde gelen raporlama — bir de zor kısmı neredeyse hiç bağlantı olmayan bir sahadan telemetriyi dışarı çıkarmak olan IoT projeleri."
+    },
+    links: []
+  },
+  {
+    when: "Jul 2025",
+    when_tr: "Tem 2025",
+    org: "DenizBank · İstanbul",
+    en: {
+      title: "Mobile app developer — seasonal programme",
+      text: "An AI-integrated personal finance application for a smartwatch, where every interaction had to survive a screen you can cover with a thumb."
+    },
+    tr: {
+      title: "Mobil uygulama geliştirici — dönemsel program",
+      text: "Akıllı saat için yapay zekâ entegre bir kişisel finans uygulaması — her etkileşimin başparmakla kapatılabilecek bir ekranda çalışması gerekiyordu."
     },
     links: []
   }
@@ -299,8 +298,8 @@ export const TIMELINE: LedgerRow[] = [
 
 export const EDUCATION: LedgerRow[] = [
   {
-    when: "2023 — 2027",
-    when_tr: "2023 — 2027",
+    when: "Aug 2025 — May 2027",
+    when_tr: "Ağu 2025 — May 2027",
     org: "Fenerbahçe University · İstanbul",
     en: {
       title: "BSc Computer Engineering — final year",
@@ -311,15 +310,29 @@ export const EDUCATION: LedgerRow[] = [
       text: "Sistem programlama, sayısal sistem tasarımı, veri madenciliği, veritabanı sistemleri, nesne yönelimli tasarım, bilgisayar mimarisi. Önemsediğim dersler notla bitmedi."
     },
     links: []
+  },
+  {
+    when: "Sep 2022 — Aug 2025",
+    when_tr: "Eyl 2022 — Ağu 2025",
+    org: "Maltepe University · İstanbul",
+    en: {
+      title: "BSc Computer Engineering",
+      text: "The first three years of the degree, before transferring to Fenerbahçe University."
+    },
+    tr: {
+      title: "Bilgisayar Mühendisliği lisans",
+      text: "Lisansın ilk üç yılı; ardından Fenerbahçe Üniversitesi'ne yatay geçiş."
+    },
+    links: []
   }
 ];
 
 export const SPEC: SpecRow[] = [
   { key_en: "Languages", key_tr: "Diller", items: ["C", "C++", "Java", "Kotlin", "Python", "TypeScript", "JavaScript", "PHP", "SQL", "Verilog"] },
   { key_en: "Backend", key_tr: "Backend", items: ["FastAPI", "REST", "JWT auth", "Idempotency", "Rate limiting", "Stripe (test)", "OpenAPI"] },
-  { key_en: "AI", key_tr: "Yapay zekâ", items: ["RAG", "Embeddings", "Foundry Local", "Ollama", "MCP", "Q-Learning", "A*"] },
+  { key_en: "AI", key_tr: "Yapay zekâ", items: ["RAG", "Embeddings", "LangChain", "Foundry Local", "Ollama", "MCP", "Q-Learning", "A*"] },
   { key_en: "IoT & hardware", key_tr: "IoT & donanım", items: ["ESP32 / Arduino", "I²C sensors", "LoRa", "Verilog HDL", "Sockets"] },
-  { key_en: "Mobile & web", key_tr: "Mobil & web", items: ["TypeScript", "Next.js", "React", "Kotlin / Android", "Flutter"] },
+  { key_en: "Mobile & web", key_tr: "Mobil & web", items: ["TypeScript", "Next.js", "React", "Supabase", "Kotlin / Android", "Flutter"] },
   { key_en: "Data", key_tr: "Veri", items: ["PostgreSQL", "MySQL", "SQLite", "3NF modelling", "pandas", "scikit-learn"] },
   { key_en: "Tooling", key_tr: "Araçlar", items: ["Git & GitHub", "Docker", "Linux", "Vercel", "Playwright", "Postman"] }
 ];
