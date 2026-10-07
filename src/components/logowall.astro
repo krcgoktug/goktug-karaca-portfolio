@@ -1,0 +1,65 @@
+---
+import { LOGOS } from "@/data/logos";
+
+/* two passes of the same row, so the marquee can loop seamlessly */
+const row = [...LOGOS, ...LOGOS];
+---
+
+<div
+  class="logo-wall relative w-full overflow-hidden border-y border-[#ffffff10] py-6"
+  aria-hidden="true"
+>
+  <div class="logo-track flex w-max items-center gap-10">
+    {
+      row.map((logo) => (
+        <span class="flex items-center gap-2 text-[var(--white-icon)] shrink-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-6"
+          >
+            <path d={logo.d} />
+          </svg>
+          <span class="text-sm whitespace-nowrap">{logo.label}</span>
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .logo-wall {
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+
+  .logo-track {
+    animation: marquee 48s linear infinite;
+  }
+
+  .logo-wall:hover .logo-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      /* exactly one copy of the row */
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track {
+      animation: none;
+    }
+  }
+</style>

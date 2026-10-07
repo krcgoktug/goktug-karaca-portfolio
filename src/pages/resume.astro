@@ -1,0 +1,132 @@
+---
+const pdf = "/Goktug_Karaca_Resume.pdf";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Göktuğ Karaca — Résumé</title>
+    <meta name="description" content="Göktuğ Karaca résumé." />
+    <meta name="theme-color" content="#101010" />
+    <link rel="icon" type="image/svg+xml" href="/assets/gk-favicon.svg" />
+    <link
+      rel="preload"
+      href="/fonts/montserrat-latin-ext-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header class="bar">
+      <h1>Göktuğ Karaca — Résumé</h1>
+      <nav class="actions">
+        <a class="btn" href="/">← Back to site</a>
+        <a class="btn" href={pdf} target="_blank" rel="noreferrer">Open PDF ↗</a>
+        <a class="btn" href={pdf} download>Download</a>
+      </nav>
+    </header>
+
+    <main class="viewer">
+      <iframe src={pdf + "#view=FitH"} title="Göktuğ Karaca résumé PDF"></iframe>
+    </main>
+
+    <noscript></noscript>
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: "Montserrat Variable";
+    src: url("/fonts/montserrat-latin-ext-wght-normal.woff2")
+      format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --background: #101010;
+    --sec: #ff5c2b;
+    --white: #dfdfdf;
+    --white-icon: #f3f3f398;
+    --white-icon-tr: #f3f3f310;
+  }
+
+  * {
+    font-family: "Montserrat Variable", -apple-system, system-ui, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(0.9rem, 3vw, 2rem);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid #ffffff10;
+    padding-bottom: 0.9rem;
+  }
+
+  .bar h1 {
+    font-size: clamp(1.05rem, 3vw, 1.5rem);
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--white-icon);
+    border: 1px solid var(--white-icon-tr);
+    background: #1414149c;
+    border-radius: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    transition:
+      color 240ms,
+      border-color 240ms,
+      background 240ms;
+  }
+
+  .btn:hover {
+    color: var(--white);
+    border-color: var(--sec);
+    background: var(--white-icon-tr);
+  }
+
+  .viewer {
+    flex: 1;
+    min-height: 72vh;
+    border: 1px solid var(--white-icon-tr);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #0b0b0b;
+  }
+
+  .viewer iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+</style>

@@ -39,6 +39,7 @@ export const GH = "https://github.com/krcgoktug/";
 export const PROJECTS: Project[] = [
   {
     repo: "tabforge-agent",
+    image: "/assets/shots/tabforge.webp",
     name: "TabForge Agent",
     cat: "ai",
     year: 2026,
@@ -94,6 +95,7 @@ export const PROJECTS: Project[] = [
   },
   {
     repo: "RATEFLIX",
+    image: "/assets/shots/rateflix.webp",
     name: "RATEFLIX",
     cat: "web",
     year: 2026,
@@ -105,6 +107,7 @@ export const PROJECTS: Project[] = [
   },
   {
     repo: "web-autorent",
+    image: "/assets/shots/autorent.webp",
     name: "web-autorent",
     cat: "web",
     year: 2025,

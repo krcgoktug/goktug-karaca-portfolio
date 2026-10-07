@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Enter from "@/components/enter.astro";
+import LogoWall from "@/components/logowall.astro";
 import Nav from "@/components/nav.astro";
 import Hero from "@/components/hero.astro";
 import Work from "@/components/work.astro";
@@ -19,9 +21,11 @@ const t = I18N[lang];
 ---
 
 <Layout lang={lang}>
+  <Enter lang={lang} />
   <Nav lang={lang} />
   <main>
     <Hero lang={lang} />
+    <LogoWall />
     <Work lang={lang} />
     <Profile lang={lang} />
     <Ledger

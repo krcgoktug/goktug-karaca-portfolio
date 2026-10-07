@@ -1,78 +1,65 @@
 # goktugkaraca.com
 
-Personal site of Göktuğ Karaca. Plain HTML, CSS and JavaScript — no framework, no
-build step, no dependencies. Deployed as a static site on Vercel.
+Personal site of Göktuğ Karaca. Astro (static output) + React islands + Tailwind,
+deployed on Vercel. English at `/`, Turkish at `/tr/`.
 
-## Files
+Built on the [dark-minimal](https://github.com/Gothsec/dark-minimal) Astro theme
+by Oscar Hernandez (MIT — see `LICENSE-dark-minimal`). The theme's visual
+language is kept; the structure, content and the arrival animation are this
+site's own.
 
-| File | What it holds |
+## Run
+
+```bash
+npm install
+npm run dev     # http://localhost:4321
+npm run build   # astro check + static build into dist/
+```
+
+Node 20+ is required.
+
+## Where things live
+
+| Path | What it holds |
 |------|----------------|
-| `index.html` | Page structure only. Text that changes with language carries a `data-i18n` key. |
-| `styles.css` | All styling and the motion system. Design tokens live in `:root` / `[data-theme="light"]`. |
-| `script.js` | Content data (projects, timeline, stack, both languages) + all behaviour. |
-| `resume/index.html` | Inline résumé viewer at `/resume`. |
-| `vercel.json` | Redirects `/resume.pdf` to the viewer, serves the PDF inline. |
+| `src/data/content.ts` | **Every word on the site, in both languages** — projects, positions, education, stack, dictionaries. |
+| `src/data/logos.ts` | Brand marks for the logo wall, generated from simple-icons (CC0). |
+| `src/components/site.astro` | Composes the page; `src/pages/index.astro` and `src/pages/tr/index.astro` just pick the language. |
+| `src/components/enter.astro` | The first-visit arrival: the site running on a laptop you click into. |
+| `src/lib/emblem.ts` | Deterministic cover art for projects with no screenshot. |
+| `public/assets/` | Portrait, desk photograph, favicon, project screenshots. |
 
 ## Adding a project
 
-Everything on the work index comes from the `PROJECTS` array at the top of
-`script.js`. Add an object and it renders in both languages, appears in the hover
-preview, and joins the filter counts automatically:
+Append to `PROJECTS` in `src/data/content.ts`:
 
-```js
+```ts
 {
-  repo: "repo-name",              // github.com/krcgoktug/<repo>
+  repo: "repo-name",            // github.com/krcgoktug/<repo>
   name: "Display name",
-  cat: "ai",                      // ai | backend | web | data | systems
-  year: 2026,                     // fallback; the live GitHub API overrides it
+  cat: "ai",                    // ai | backend | web | data | systems
+  year: 2026,
   tags: ["Python", "FastAPI"],
-  live: "https://…",              // or null — adds the LIVE badge
-  team: true,                     // shows "Team project" in the hover preview
+  live: "https://…",            // or null — adds the LIVE badge
+  team: true,
+  image: "/assets/shots/x.webp",// optional; omit and a sigil is drawn instead
   en: "One or two sentences.",
   tr: "Bir iki cümle."
 }
 ```
 
-The ticker count is derived from the array length, so it cannot go stale.
+It renders in both languages and joins the filter counts automatically.
 
-Timeline entries live in `TIMELINE`, the stack table in `SPEC`, the hero strip in
-`INTERESTS`, and every other string in `I18N.en` / `I18N.tr`.
+## Things worth knowing
 
-## Behaviour worth knowing
-
-- **Live GitHub data.** On load the page asks the public GitHub API for the repo
-  list and replaces each row's year with the real last-push year. If the request
-  fails (offline, rate limit) the static years stay — nothing breaks.
-- **The first visit opens on a photograph.** `assets/desk.jpg` is a real night-desk
-  photo (Unsplash, free licence, no attribution required) with the laptop panel
-  measured as fractions of the image in `PANEL` inside `script.js`. The site
-  itself runs in an iframe on that panel at `?embed=1`, rendered at full viewport
-  size and scaled down, so clicking zooms back to exactly 1:1 and hands over to
-  the real page without a jump. Swap the photo by replacing the file and
-  re-measuring `PANEL` (x/y/width/height as fractions of the image). It runs once
-  per browser session (`sessionStorage`), so a refresh goes straight to the page
-  but a fresh visit gets the desk again; `?intro=1` forces it any time.
-- **Reveals are geometry based**, not `IntersectionObserver`, so they also work
-  inside embedded and headless contexts where observer callbacks never fire. They
-  are re-checked on scroll and on a slow animation-frame tick, so a deep link or a
-  late-loading font can never leave a section stuck invisible.
-- **No component library, on purpose.** There are no buttons, cards, pills or
-  badges — every control is a piece of typography with a rule under it. If a
-  change starts to look like a UI kit, it is wrong.
-- **Theme and language** persist in `localStorage` (`gk-theme`, `gk-lang`) and are
-  applied before first paint by the inline script in `<head>`.
-- **`prefers-reduced-motion`** switches off the boot screen, the cursor, the
-  marquee, the pointer field and every transition.
-
-## Run locally
-
-Any static server, e.g.:
-
-```bash
-python -m http.server 4321
-```
-
-## Deploy
-
-Push to `main`; Vercel builds the static output and serves it at
-[goktugkaraca.com](https://www.goktugkaraca.com/).
+- **Covers are not stock images.** Three projects have a real screenshot of
+  their own interface; the rest are a CLI, an API or a Verilog CPU and get a
+  sigil drawn from the repository name instead of a fake mockup.
+- **The arrival runs once per browser session** (`sessionStorage`), so a refresh
+  goes straight to the page but a fresh visit gets the desk again. `?intro=1`
+  forces it; it is skipped for reduced motion, touch, viewports under 940px,
+  deep links, and inside the laptop's own copy (`?embed=1`) so it cannot recurse.
+- **Turkish needs the latin-ext font face.** Without it `ğ ş ı` fall back to a
+  system font mid-word. Both faces are declared with their unicode ranges.
+- **`vercel.json` pins the framework** to Astro so the project's stored preset
+  cannot deploy the repo root instead of `dist/`.
