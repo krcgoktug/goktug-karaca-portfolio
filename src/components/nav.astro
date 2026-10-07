@@ -139,17 +139,7 @@ const items = [
 </style>
 
 <script>
-  /* inside the laptop on the intro there is nobody to spy for, and the scroll
-     handler would run on every nudge of the live screen */
-  const embedded = (() => {
-    try {
-      return window.self !== window.top;
-    } catch (e) {
-      return true;
-    }
-  })();
-
-  const nav = embedded ? null : document.getElementById("main-nav");
+  const nav = document.getElementById("main-nav");
   const links = Array.from(
     document.querySelectorAll<HTMLAnchorElement>('#main-nav a[href^="#"]'),
   );

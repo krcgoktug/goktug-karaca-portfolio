@@ -25,9 +25,8 @@ Node 20+ is required.
 | `src/data/content.ts` | **Every word on the site, in both languages** — projects, positions, education, stack, dictionaries. |
 | `src/data/logos.ts` | Brand marks for the logo wall, generated from simple-icons (CC0). |
 | `src/components/site.astro` | Composes the page; `src/pages/index.astro` and `src/pages/tr/index.astro` just pick the language. |
-| `src/components/enter.astro` | The first-visit arrival: the site running on a laptop you click into. |
 | `src/lib/emblem.ts` | Deterministic cover art for projects with no screenshot. |
-| `public/assets/` | Portrait, desk photograph, favicon, project screenshots. |
+| `public/assets/` | Portrait, favicon, project screenshots. |
 
 ## Adding a project
 
@@ -55,10 +54,6 @@ It renders in both languages and joins the filter counts automatically.
 - **Covers are not stock images.** Three projects have a real screenshot of
   their own interface; the rest are a CLI, an API or a Verilog CPU and get a
   sigil drawn from the repository name instead of a fake mockup.
-- **The arrival runs once per browser session** (`sessionStorage`), so a refresh
-  goes straight to the page but a fresh visit gets the desk again. `?intro=1`
-  forces it; it is skipped for reduced motion, touch, viewports under 940px,
-  deep links, and inside the laptop's own copy (`?embed=1`) so it cannot recurse.
 - **Turkish needs the latin-ext font face.** Without it `ğ ş ı` fall back to a
   system font mid-word. Both faces are declared with their unicode ranges.
 - **`vercel.json` pins the framework** to Astro so the project's stored preset

@@ -13,18 +13,6 @@ const LetterGlitch = ({
   outerVignette: boolean;
   smooth: boolean;
 }) => {
-  /* rendered inside the intro's laptop too, where an animating canvas is
-     wasted work on top of everything else the arrival is doing */
-  const embedded =
-    typeof window !== "undefined" &&
-    (() => {
-      try {
-        return window.self !== window.top;
-      } catch (e) {
-        return true;
-      }
-    })();
-
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const letters = useRef<
@@ -289,8 +277,6 @@ const LetterGlitch = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [glitchSpeed, smooth]);
-
-  if (embedded) return <div className="w-full h-full bg-[#0f0f10]" />;
 
   return (
     <div className="relative w-full h-full bg-[#101010] overflow-hidden">
