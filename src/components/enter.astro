@@ -1,0 +1,368 @@
+---
+import { I18N, type Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = I18N[lang];
+/* the laptop shows the page in the language you are reading */
+const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
+---
+
+<div class="enter" id="enter" data-embed={embedSrc} hidden aria-hidden="true">
+  <div class="enter-stage" id="enterStage">
+    <div class="photo" id="enterPhoto">
+      <img src="/assets/desk.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
+
+      <div class="screen" id="enterScreen">
+        <iframe id="enterFrame" src="about:blank" title="" tabindex="-1" scrolling="no"></iframe>
+        <span class="power"></span>
+        <span class="glass"></span>
+      </div>
+
+      <svg class="point" viewBox="0 0 2000 1333" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M660 1186 C 700 1082, 742 952, 774 828"></path>
+        <path d="M774 828 l -36 54 M774 828 l 38 48"></path>
+      </svg>
+      <span class="point-label">{t.enter_cta}</span>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* --- the arrival: our site running on a real laptop you click into ------- */
+
+  .enter {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #07070a;
+    cursor: pointer;
+  }
+
+  .enter[hidden] {
+    display: none;
+  }
+
+  .enter.done {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms linear;
+  }
+
+  .enter-stage {
+    transform-origin: 0 0;
+    will-change: transform;
+    transition: transform 1150ms cubic-bezier(0.66, 0, 0.2, 1);
+  }
+
+  /* the photo covers the viewport, and everything that has to sit on the
+     laptop is positioned as a fraction of it, so it never drifts */
+  .enter .photo {
+    position: relative;
+    width: max(100vw, calc(100vh * 1.5));
+    height: max(100vh, calc(100vw / 1.5));
+  }
+
+  .enter .photo > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 500ms linear;
+  }
+
+  .enter .screen {
+    position: absolute;
+    overflow: hidden;
+    background: #040406;
+  }
+
+  .enter .screen iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: 0 0;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+      opacity 420ms linear 120ms,
+      filter 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.82) contrast(1.04);
+  }
+
+  .enter.lit .screen iframe {
+    opacity: 1;
+  }
+
+  .enter.go .screen iframe {
+    filter: none;
+  }
+
+  .enter .power {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    transform: scaleX(0.02);
+    opacity: 0;
+  }
+
+  .enter.lit .power {
+    animation: enterPowerOn 560ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes enterPowerOn {
+    0% {
+      opacity: 1;
+      transform: scaleX(0.02) scaleY(1);
+    }
+    45% {
+      opacity: 1;
+      transform: scaleX(1) scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scaleX(1) scaleY(60);
+    }
+  }
+
+  .enter .glass {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      112deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 26%,
+      transparent 48%,
+      transparent 72%,
+      rgba(255, 214, 170, 0.06) 100%
+    );
+    transition: opacity 500ms linear;
+  }
+
+  .enter .point {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .enter .point path {
+    fill: none;
+    stroke: var(--sec);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.92;
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: enterDrawArrow 900ms cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards;
+  }
+
+  @keyframes enterDrawArrow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .enter .point-label {
+    position: absolute;
+    left: 30.5%;
+    top: 92.5%;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    font-size: clamp(0.72rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sec);
+    white-space: nowrap;
+    opacity: 0;
+    animation: enterLabelIn 600ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+  }
+
+  @keyframes enterLabelIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 10px)) rotate(-3deg);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(-3deg);
+    }
+  }
+
+  /* walking in: the room falls away and the page takes the whole frame */
+  .enter.go {
+    cursor: default;
+  }
+
+  .enter.go .photo > img {
+    opacity: 0;
+    transition: opacity 700ms linear 260ms;
+  }
+
+  .enter.go .point,
+  .enter.go .point-label,
+  .enter.go .glass {
+    opacity: 0;
+    transition: opacity 260ms linear;
+  }
+
+  html.locked body {
+    overflow: hidden;
+  }
+
+  /* the copy of the site living inside the laptop */
+  html.embed body {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enter .point path {
+      stroke-dashoffset: 0;
+    }
+    .enter .point-label {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const box = document.getElementById("enter");
+
+  if (box) {
+    const params = new URLSearchParams(location.search);
+    const root = document.documentElement;
+    const embedded = (() => {
+      try {
+        return window.self !== window.top;
+      } catch (e) {
+        return true;
+      }
+    })() || params.has("embed");
+
+    if (embedded) root.classList.add("embed");
+
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const small = window.innerWidth < 940 || window.innerHeight < 560;
+    const forced = params.has("intro");
+
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem("gk-visited") === "1";
+      localStorage.removeItem("gk-visited"); /* flag left by an earlier build */
+    } catch (e) {}
+
+    const skip =
+      embedded || still || touch || small || location.hash || (visited && !forced);
+
+    if (!skip) {
+      const stage = document.getElementById("enterStage") as HTMLElement;
+      const photo = document.getElementById("enterPhoto") as HTMLElement;
+      const screenEl = document.getElementById("enterScreen") as HTMLElement;
+      const frame = document.getElementById("enterFrame") as HTMLIFrameElement;
+
+      /* where the laptop's panel sits inside the photograph */
+      const PANEL = { x: 0.2952, y: 0.2772, w: 0.3826, h: 0.3639 };
+
+      /* the panel is trimmed to the viewport's shape and the page inside is
+         rendered at full viewport size, then scaled down — so walking in is a
+         plain scale back to 1 and lands pin sharp on the real page */
+      const fit = () => {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const pr = photo.getBoundingClientRect();
+        let w = PANEL.w * pr.width;
+        let h = PANEL.h * pr.height;
+        let x = PANEL.x * pr.width;
+        let y = PANEL.y * pr.height;
+        const va = vw / vh;
+
+        if (w / h > va) {
+          const nw = h * va;
+          x += (w - nw) / 2;
+          w = nw;
+        } else {
+          const nh = w / va;
+          y += (h - nh) / 2;
+          h = nh;
+        }
+
+        screenEl.style.left = x + "px";
+        screenEl.style.top = y + "px";
+        screenEl.style.width = w + "px";
+        screenEl.style.height = h + "px";
+        frame.style.width = vw + "px";
+        frame.style.height = vh + "px";
+        frame.style.transform = "scale(" + (w / vw).toFixed(5) + ")";
+      };
+
+      box.hidden = false;
+      box.setAttribute("aria-hidden", "false");
+      root.classList.add("locked");
+      fit();
+
+      /* the laptop wakes up once the page inside it has loaded */
+      const lightUp = () => box.classList.add("lit");
+      frame.addEventListener("load", lightUp);
+      setTimeout(lightUp, 900);
+      frame.src = box.dataset.embed || "/?embed=1";
+      window.addEventListener("resize", fit);
+
+      let walked = false;
+      const walkIn = () => {
+        if (walked) return;
+        walked = true;
+        try {
+          sessionStorage.setItem("gk-visited", "1");
+        } catch (e) {}
+
+        const vw = window.innerWidth;
+        const st = stage.getBoundingClientRect();
+        const sr = screenEl.getBoundingClientRect();
+        const scale = vw / sr.width;
+        const tx = -st.left - scale * (sr.left - st.left);
+        const ty = -st.top - scale * (sr.top - st.top);
+
+        box.classList.add("go");
+        stage.style.transform =
+          "translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px) scale(" +
+          scale.toFixed(5) + ")";
+
+        /* cross-fade only once the zoom has landed, so the copy on the laptop
+           and the real page are pixel-identical while both are visible */
+        setTimeout(() => {
+          box.classList.add("done");
+          root.classList.remove("locked");
+          setTimeout(() => {
+            box.hidden = true;
+            frame.src = "about:blank";
+            window.removeEventListener("resize", fit);
+          }, 300);
+        }, 1220);
+      };
+
+      box.addEventListener("pointerdown", walkIn);
+      box.addEventListener("click", walkIn);
+      document.addEventListener("keydown", (e) => {
+        if (walked || box.hidden) return;
+        if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
+          e.preventDefault();
+          walkIn();
+        }
+      });
+    }
+  }
+</script>

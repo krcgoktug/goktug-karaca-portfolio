@@ -1,0 +1,33 @@
+---
+import { I18N, type Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = I18N[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="text-[var(--white-icon)] pb-28 md:pb-12 pt-10">
+  <div class="max-w-5xl mx-auto">
+    <p
+      class="select-none text-[13vw] md:text-[9rem] leading-none font-semibold tracking-tighter text-transparent whitespace-nowrap overflow-hidden"
+      style="-webkit-text-stroke: 1px #ffffff14;"
+      aria-hidden="true"
+    >
+      GÖKTUĞ KARACA
+    </p>
+
+    <div
+      class="flex flex-wrap justify-between items-center gap-3 text-[11px] tracking-widest uppercase border-t border-[#ffffff10] mt-6 pt-5"
+    >
+      <span>© {year} Göktuğ Karaca</span>
+      <span class="hidden md:inline">{t.foot_built}</span>
+      <a href="#home" class="hover:text-[var(--sec)] transition-colors">
+        {lang === "tr" ? "Başa dön ↑" : "Back to top ↑"}
+      </a>
+    </div>
+  </div>
+</footer>

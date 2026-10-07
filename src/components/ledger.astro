@@ -1,0 +1,67 @@
+---
+import type { LedgerRow, Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+  id: string;
+  num: string;
+  title: string;
+  note: string;
+  rows: LedgerRow[];
+}
+
+const { lang, id, num, title, note, rows } = Astro.props as Props;
+---
+
+<section
+  id={id}
+  class="py-12 border-t border-[#ffffff10] text-[var(--white)] scroll-mt-24"
+>
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-lg text-[var(--sec)] mb-2">{num}</h2>
+    <h3 class="text-4xl md:text-5xl font-medium mb-3">{title}</h3>
+    <p class="text-[var(--white-icon)] max-w-2xl mb-8">{note}</p>
+
+    <ol class="border-t border-[#ffffff10]">
+      {
+        rows.map((row) => (
+          <li class="group grid md:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] gap-2 md:gap-8 py-6 border-b border-[#ffffff10] transition-colors hover:bg-[#ffffff05] md:px-3 md:-mx-3 rounded-xl">
+            <div class="text-[11px] tracking-widest uppercase text-[var(--white-icon)] md:pt-2 space-y-1">
+              <div class="flex items-center gap-2">
+                <span>{lang === "tr" && row.when_tr ? row.when_tr : row.when}</span>
+                {row.now && <span class="size-[6px] rounded-full bg-[var(--sec)]" />}
+              </div>
+              <div class="text-[var(--white-icon)] opacity-80">{row.org}</div>
+            </div>
+
+            <div>
+              <h4 class="text-xl md:text-2xl font-medium leading-snug">
+                {row[lang].title}
+              </h4>
+              {row[lang].text && (
+                <p class="text-[var(--white-icon)] leading-relaxed mt-2 max-w-2xl">
+                  {row[lang].text}
+                </p>
+              )}
+
+              {row.links.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {row.links.map((link) => (
+                    <a
+                      href={link.url}
+                      target={link.url.startsWith("#") ? undefined : "_blank"}
+                      rel="noopener noreferrer"
+                      class="text-[11px] tracking-widest uppercase text-[var(--white-icon)] hover:text-[var(--sec)] border border-[var(--white-icon-tr)] hover:border-[var(--sec)] rounded-full px-3 py-2 transition"
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
