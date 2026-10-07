@@ -1,0 +1,61 @@
+---
+import { I18N, type Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = I18N[lang];
+
+const booking =
+  "mailto:karacagoktug73@gmail.com?subject=20-minute%20technical%20conversation&body=Hi%20G%C3%B6ktu%C4%9F%2C%0A%0AI%27d%20like%20to%20book%20a%2020-minute%20technical%20conversation.%20These%20times%20work%20for%20me%3A%0A";
+
+const channels = [
+  { k: "Email", v: "karacagoktug73@gmail.com", href: "mailto:karacagoktug73@gmail.com" },
+  { k: "GitHub", v: "github.com/krcgoktug", href: "https://github.com/krcgoktug" },
+  {
+    k: "LinkedIn",
+    v: "in/goktug-karaca",
+    href: "https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-karaca-921479249/",
+  },
+  { k: t.ch_resume, v: t.ch_resume_v, href: "/resume" },
+  { k: t.ch_booking, v: t.ch_booking_v, href: booking },
+];
+---
+
+<section
+  id="contact"
+  class="py-12 border-t border-[#ffffff10] text-[var(--white)] scroll-mt-24"
+>
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-lg text-[var(--sec)] mb-2">06</h2>
+    <h3 class="text-4xl md:text-5xl font-medium mb-3">{t.contact_title}</h3>
+    <p class="text-[var(--white-icon)] max-w-2xl mb-8">{t.contact_note}</p>
+
+    <ul class="border-t border-[#ffffff10]">
+      {
+        channels.map((c) => (
+          <li class="border-b border-[#ffffff10]">
+            <a
+              href={c.href}
+              target={c.href.startsWith("http") ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              class="group grid grid-cols-[minmax(0,0.3fr)_minmax(0,1fr)_auto] items-center gap-4 py-5 md:px-3 md:-mx-3 rounded-xl transition-colors hover:bg-[#ffffff05]"
+            >
+              <span class="text-[11px] tracking-widest uppercase text-[var(--white-icon)]">
+                {c.k}
+              </span>
+              <span class="text-lg md:text-2xl font-medium group-hover:text-[var(--sec)] transition-colors">
+                {c.v}
+              </span>
+              <span class="text-[var(--white-icon)] group-hover:text-[var(--sec)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
+                ↗
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

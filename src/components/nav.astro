@@ -1,0 +1,166 @@
+---
+import { I18N, type Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = I18N[lang];
+const base = lang === "tr" ? "/tr/" : "/";
+
+/* icon only shows on the mobile bar, so it carries the five that matter most */
+const items = [
+  {
+    label: t.nav_work,
+    href: "#work",
+    onMobile: true,
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4 5V19H20V7H11.5858L9.58579 5H4ZM12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5Z"></path></svg>`,
+  },
+  {
+    label: t.nav_profile,
+    href: "#profile",
+    onMobile: false,
+    icon: "",
+  },
+  {
+    label: t.nav_track,
+    href: "#track",
+    onMobile: true,
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM13 12V7H11V14H17V12H13Z"></path></svg>`,
+  },
+  {
+    label: t.nav_education,
+    href: "#education",
+    onMobile: false,
+    icon: "",
+  },
+  {
+    label: t.nav_stack,
+    href: "#stack",
+    onMobile: true,
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.083 10.5L21.2227 11.1156C21.4657 11.2469 21.5564 11.5502 21.4251 11.7931C21.3784 11.8797 21.3072 11.9508 21.2207 11.9976L12 17L2.77927 11.9976C2.53635 11.8658 2.44569 11.5622 2.57751 11.3193C2.62434 11.2329 2.69535 11.1619 2.78178 11.1152L3.91702 10.5L12 14.8852L20.083 10.5ZM12 3L21.2207 8.00243C21.4636 8.13424 21.5543 8.43781 21.4225 8.68073C21.3757 8.76714 21.3046 8.83817 21.2182 8.885L12 13.8852L2.78178 8.885C2.53886 8.75318 2.4482 8.44961 2.58002 8.20669C2.62685 8.12028 2.69786 8.04925 2.78429 8.00243L12 3Z"></path></svg>`,
+  },
+  {
+    label: t.nav_contact,
+    href: "#contact",
+    onMobile: true,
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg>`,
+  },
+];
+---
+
+<div class="flex justify-center w-full">
+  <nav
+    id="main-nav"
+    class="fixed left-1/2 -translate-x-1/2 z-[100] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 md:w-auto w-[90%]"
+  >
+    <div class="container mx-auto flex items-center gap-4 p-3 md:px-6">
+      <ul class="flex w-full justify-between md:justify-center md:gap-7 gap-4">
+        {
+          items.map((item) => (
+            <li class={item.onMobile ? "flex-1 md:flex-none" : "hidden md:block"}>
+              <a
+                href={item.href}
+                class="flex flex-col items-center gap-1 text-[var(--white-icon)] hover:text-white transition-colors text-[11px] md:text-sm relative group whitespace-nowrap"
+              >
+                <span class="md:hidden flex items-center justify-center w-6 h-6">
+                  <Fragment set:html={item.icon} />
+                </span>
+                <span>{item.label}</span>
+                <span class="nav-underline absolute -bottom-1 left-0 right-0 h-px bg-[var(--sec)] scale-x-0 transition-transform duration-300 origin-left hidden md:block" />
+              </a>
+            </li>
+          ))
+        }
+
+        <li class="hidden md:block">
+          <a
+            href="/resume"
+            class="flex items-center text-[var(--white-icon)] hover:text-white transition-colors text-sm whitespace-nowrap h-full"
+          >
+            {t.nav_resume}
+          </a>
+        </li>
+
+        <li class="hidden md:flex items-center gap-1 text-sm pl-2 border-l border-[var(--white-icon-tr)]">
+          <a
+            href="/"
+            class={
+              "transition-colors " +
+              (lang === "en" ? "text-[var(--sec)]" : "text-[var(--white-icon)] hover:text-white")
+            }
+            hreflang="en">EN</a
+          >
+          <span class="text-[var(--white-icon-tr)]">/</span>
+          <a
+            href="/tr/"
+            class={
+              "transition-colors " +
+              (lang === "tr" ? "text-[var(--sec)]" : "text-[var(--white-icon)] hover:text-white")
+            }
+            hreflang="tr">TR</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- language switch stays reachable on phones, where the bar has no room -->
+<a
+  href={lang === "tr" ? "/" : "/tr/"}
+  class="md:hidden fixed top-4 right-4 z-[100] text-xs tracking-widest text-[var(--white-icon)] border border-[var(--white-icon-tr)] bg-[#141414cc] backdrop-blur-xl rounded-full px-3 py-2"
+  >{lang === "tr" ? "EN" : "TR"}</a
+>
+
+<style>
+  nav {
+    background-color: var(--background);
+    transition:
+      background-color 0.3s ease,
+      border-radius 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  nav.scrolling {
+    background-color: var(--component-bg);
+    border-color: #ffffff10;
+    border-radius: 9999px;
+  }
+
+  nav a.active {
+    color: white;
+  }
+
+  nav a.active .nav-underline {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const nav = document.getElementById("main-nav");
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('#main-nav a[href^="#"]'),
+  );
+  const sections = links
+    .map((a) => document.querySelector<HTMLElement>(a.getAttribute("href") || ""))
+    .filter(Boolean) as HTMLElement[];
+
+  const onScroll = () => {
+    if (nav) nav.classList.toggle("scrolling", window.scrollY > 24);
+
+    let current = "";
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top < window.innerHeight * 0.42) {
+        current = section.id;
+      }
+    }
+    links.forEach((a) =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + current),
+    );
+  };
+
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

@@ -1,0 +1,47 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Hero from "@/components/hero.astro";
+import Work from "@/components/work.astro";
+import Profile from "@/components/profile.astro";
+import Ledger from "@/components/ledger.astro";
+import Stack from "@/components/stack.astro";
+import Contact from "@/components/contact.astro";
+import Footer from "@/components/footer.astro";
+import { I18N, TIMELINE, EDUCATION, type Lang } from "@/data/content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = I18N[lang];
+---
+
+<Layout lang={lang}>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Work lang={lang} />
+    <Profile lang={lang} />
+    <Ledger
+      lang={lang}
+      id="track"
+      num="03"
+      title={t.track_title}
+      note={t.track_note}
+      rows={TIMELINE}
+    />
+    <Ledger
+      lang={lang}
+      id="education"
+      num="04"
+      title={t.edu_title}
+      note={t.edu_note}
+      rows={EDUCATION}
+    />
+    <Stack lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>
