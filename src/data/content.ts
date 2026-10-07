@@ -220,9 +220,8 @@ export const PROJECTS: Project[] = [
 
 export const TIMELINE: LedgerRow[] = [
   {
-    when: "Aug 2026 — now",
-    when_tr: "Ağu 2026 — bugün",
-    now: true,
+    when: "Aug — Oct 2026",
+    when_tr: "Ağu — Eki 2026",
     org: "ITserv Technology · İstanbul",
     en: {
       title: "Software developer — internship",
@@ -267,16 +266,17 @@ export const TIMELINE: LedgerRow[] = [
     links: [{ label: "TabForge Agent", url: GH + "tabforge-agent" }]
   },
   {
-    when: "Jun — Aug 2026",
-    when_tr: "Haz — Ağu 2026",
+    when: "Jun 2026 — now",
+    when_tr: "Haz 2026 — bugün",
+    now: true,
     org: "ZENO Bilişim ve Danışmanlık · İstanbul",
     en: {
-      title: "Software developer — internship",
-      text: "CRM work on the consultancy side: Microsoft Dynamics implementation, integration between it and the systems around it, and the reporting that comes with it — plus IoT projects where the hard part is getting telemetry out of a site with almost no connectivity."
+      title: "Software developer — internship, now part-time volunteer",
+      text: "CRM work on the consultancy side: Microsoft Dynamics implementation, integration between it and the systems around it, and the reporting that comes with it — plus IoT projects where the hard part is getting telemetry out of a site with almost no connectivity. The internship ran June to August; I have stayed on part-time as a volunteer since."
     },
     tr: {
-      title: "Yazılım geliştirici — staj",
-      text: "Danışmanlık tarafında CRM işleri: Microsoft Dynamics kurulumu, çevresindeki sistemlerle entegrasyonu ve beraberinde gelen raporlama — bir de zor kısmı neredeyse hiç bağlantı olmayan bir sahadan telemetriyi dışarı çıkarmak olan IoT projeleri."
+      title: "Yazılım geliştirici — staj, şimdi yarı zamanlı gönüllü",
+      text: "Danışmanlık tarafında CRM işleri: Microsoft Dynamics kurulumu, çevresindeki sistemlerle entegrasyonu ve beraberinde gelen raporlama — bir de zor kısmı neredeyse hiç bağlantı olmayan bir sahadan telemetriyi dışarı çıkarmak olan IoT projeleri. Staj Haziran–Ağustos arasıydı; o günden beri yarı zamanlı gönüllü olarak devam ediyorum."
     },
     links: []
   },
