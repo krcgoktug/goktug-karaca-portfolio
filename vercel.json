@@ -13,6 +13,21 @@
       "source": "/resume.pdf/",
       "destination": "/resume",
       "permanent": false
+    },
+    {
+      "source": "/cv",
+      "destination": "/resume",
+      "permanent": false
+    },
+    {
+      "source": "/cv/",
+      "destination": "/resume",
+      "permanent": false
+    },
+    {
+      "source": "/cv.pdf",
+      "destination": "/resume",
+      "permanent": false
     }
   ],
   "headers": [

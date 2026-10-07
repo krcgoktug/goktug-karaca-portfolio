@@ -26,7 +26,7 @@ const t = I18N[lang];
               {lang === "tr" ? row.key_tr : row.key_en}
             </span>
             <div class="flex flex-wrap gap-2">
-              {row.items.map((item) => (
+              {((lang === "tr" && row.items_tr) || row.items).map((item) => (
                 <span class="text-sm text-[var(--white)] border border-[var(--white-icon-tr)] bg-[#1414149c] rounded-lg px-3 py-1.5 hover:border-[var(--sec)] hover:text-[var(--sec)] transition duration-300">
                   {item}
                 </span>

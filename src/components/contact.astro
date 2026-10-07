@@ -8,11 +8,22 @@ interface Props {
 const { lang } = Astro.props as Props;
 const t = I18N[lang];
 
+const mail = (subject: string, body: string) =>
+  `mailto:karacagoktug73@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
 const booking =
-  "mailto:karacagoktug73@gmail.com?subject=20-minute%20technical%20conversation&body=Hi%20G%C3%B6ktu%C4%9F%2C%0A%0AI%27d%20like%20to%20book%20a%2020-minute%20technical%20conversation.%20These%20times%20work%20for%20me%3A%0A";
+  lang === "tr"
+    ? mail(
+        "20 dakikalık teknik görüşme",
+        "Merhaba Göktuğ,\n\n20 dakikalık bir teknik görüşme ayarlamak istiyorum. Benim için uygun saatler:\n",
+      )
+    : mail(
+        "20-minute technical conversation",
+        "Hi Göktuğ,\n\nI'd like to book a 20-minute technical conversation. These times work for me:\n",
+      );
 
 const channels = [
-  { k: "Email", v: "karacagoktug73@gmail.com", href: "mailto:karacagoktug73@gmail.com" },
+  { k: lang === "tr" ? "E-posta" : "Email", v: "karacagoktug73@gmail.com", href: "mailto:karacagoktug73@gmail.com" },
   { k: "GitHub", v: "github.com/krcgoktug", href: "https://github.com/krcgoktug" },
   {
     k: "LinkedIn",

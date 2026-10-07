@@ -106,12 +106,12 @@ const facts = [
           class="group mt-2 flex items-center gap-4 rounded-2xl border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-3 hover:border-[#ffffff26] transition-colors"
         >
           <span class="text-[10px] tracking-widest uppercase text-[var(--sec)] shrink-0">
-            {lang === "tr" ? "En son" : "Latest"}
+            {lang === "tr" ? "Son proje" : "Latest"}
           </span>
           <span class="min-w-0 flex-1">
-            <span class="block text-sm font-medium truncate">{latest.name}</span>
+            <span class="block text-sm font-medium truncate">{(lang === "tr" && latest.name_tr) || latest.name}</span>
             <span class="block text-xs text-[var(--white-icon)] truncate">
-              {latest.tags.join(" · ")}
+              {((lang === "tr" && latest.tags_tr) || latest.tags).join(" · ")}
             </span>
           </span>
           <span
@@ -137,7 +137,7 @@ const facts = [
           <figcaption
             class="mt-2 flex justify-between gap-2 text-[11px] tracking-widest uppercase text-[var(--white-icon)]"
           >
-            <span>Fig. 01</span><span class="truncate">{t.plate_caption}</span>
+            <span>{lang === "tr" ? "Şekil 01" : "Fig. 01"}</span><span class="truncate">{t.plate_caption}</span>
           </figcaption>
         </figure>
 

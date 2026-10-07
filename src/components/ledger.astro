@@ -53,7 +53,7 @@ const { lang, id, num, title, note, rows } = Astro.props as Props;
                       rel="noopener noreferrer"
                       class="text-[11px] tracking-widest uppercase text-[var(--white-icon)] hover:text-[var(--sec)] border border-[var(--white-icon-tr)] hover:border-[var(--sec)] rounded-full px-3 py-2 transition"
                     >
-                      {link.label} ↗
+                      {(lang === "tr" && link.label_tr) || link.label} ↗
                     </a>
                   ))}
                 </div>
