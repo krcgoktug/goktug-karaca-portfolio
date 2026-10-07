@@ -115,7 +115,13 @@ const path = lang === "tr" ? "/tr/" : "/";
 
   html {
     scroll-behavior: smooth;
+    /* the copy inside the laptop is nudged a few times a second; smooth
+       scrolling would restart an animation on every nudge and never settle */
     scrollbar-gutter: stable;
+  }
+
+  html.embed {
+    scroll-behavior: auto;
   }
 
   *::selection {

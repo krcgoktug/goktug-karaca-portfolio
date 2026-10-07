@@ -13,20 +13,21 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
 
 <div class="enter" id="enter" data-embed={embedSrc} hidden aria-hidden="true">
   <div class="enter-stage" id="enterStage">
-    <div class="photo" id="enterPhoto">
-      <img src="/assets/desk.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
+    <div class="enter-drift" id="enterDrift">
+      <div class="photo" id="enterPhoto">
+        <img src="/assets/desk.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
 
-      <div class="screen" id="enterScreen">
-        <iframe id="enterFrame" src="about:blank" title="" tabindex="-1" scrolling="no"></iframe>
-        <span class="power"></span>
-        <span class="glass"></span>
+        <div class="screen" id="enterScreen">
+          <iframe id="enterFrame" src="about:blank" title="" tabindex="-1" scrolling="no"></iframe>
+          <span class="power"></span>
+          <span class="flash"></span>
+          <span class="glass"></span>
+        </div>
+
+        <span class="invite" id="enterInvite"></span>
+
+        <span class="point-label">{t.enter_cta}</span>
       </div>
-
-      <svg class="point" viewBox="0 0 2000 1333" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M660 1186 C 700 1082, 742 952, 774 828"></path>
-        <path d="M774 828 l -36 54 M774 828 l 38 48"></path>
-      </svg>
-      <span class="point-label">{t.enter_cta}</span>
     </div>
   </div>
 </div>
@@ -52,13 +53,30 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
   .enter.done {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 220ms linear;
+    transition: opacity 260ms linear;
   }
 
   .enter-stage {
     transform-origin: 0 0;
     will-change: transform;
     transition: transform 1150ms cubic-bezier(0.66, 0, 0.2, 1);
+  }
+
+  /* the shot breathes while it waits, and the click continues that same move
+     instead of starting a new one */
+  .enter-drift {
+    transform-origin: 52% 46%;
+    animation: enterDrift 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes enterDrift {
+    from {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.045) translate3d(-10px, -7px, 0);
+    }
   }
 
   /* the photo covers the viewport, and everything that has to sit on the
@@ -74,7 +92,9 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: opacity 500ms linear;
+    transition:
+      opacity 500ms linear,
+      filter 420ms ease-out;
   }
 
   .enter .screen {
@@ -101,8 +121,28 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
     opacity: 1;
   }
 
-  .enter.go .screen iframe {
-    filter: none;
+  /* the panel itself invites the click — no sticker arrow over the photograph.
+     the glow is its own layer so the pulse never repaints the iframe under it */
+  .enter .invite {
+    position: absolute;
+    pointer-events: none;
+    box-shadow: 0 0 52px 12px rgba(190, 205, 255, 0.17);
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  .enter.lit .invite {
+    animation: enterInvite 3.6s ease-in-out infinite;
+  }
+
+  @keyframes enterInvite {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 
   .enter .power {
@@ -135,6 +175,31 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
     }
   }
 
+  /* the display catching the light as it wakes under your click */
+  .enter .flash {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .enter.go .flash {
+    animation: enterFlash 420ms ease-out forwards;
+  }
+
+  @keyframes enterFlash {
+    0% {
+      opacity: 0;
+    }
+    18% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   .enter .glass {
     position: absolute;
     inset: 0;
@@ -150,73 +215,90 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
     transition: opacity 500ms linear;
   }
 
-  .enter .point {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  .enter .point path {
-    fill: none;
-    stroke: var(--sec);
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0.92;
-    stroke-dasharray: 900;
-    stroke-dashoffset: 900;
-    animation: enterDrawArrow 900ms cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards;
-  }
-
-  @keyframes enterDrawArrow {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
+  /* a line of lamp-lit type on the desk, rather than an overlay */
   .enter .point-label {
     position: absolute;
-    left: 30.5%;
-    top: 92.5%;
-    transform: translate(-50%, -50%) rotate(-3deg);
-    font-size: clamp(0.72rem, 1.1vw, 0.95rem);
-    letter-spacing: 0.22em;
+    left: 50%;
+    top: 93%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+    letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: var(--sec);
-    white-space: nowrap;
+    color: #ffbe8a;
     opacity: 0;
-    animation: enterLabelIn 600ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+    white-space: nowrap;
+    text-shadow: 0 0 18px rgba(255, 170, 90, 0.35);
+    animation: enterLabelIn 2.4s ease-in-out 1100ms infinite;
   }
 
   @keyframes enterLabelIn {
-    from {
-      opacity: 0;
-      transform: translate(-50%, calc(-50% + 10px)) rotate(-3deg);
+    0%,
+    100% {
+      opacity: 0.35;
     }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) rotate(-3deg);
+    50% {
+      opacity: 0.85;
     }
   }
 
-  /* walking in: the room falls away and the page takes the whole frame */
+  /* walking in: the room falls back, the screen takes the frame */
   .enter.go {
     cursor: default;
   }
 
-  .enter.go .photo > img {
-    opacity: 0;
-    transition: opacity 700ms linear 260ms;
+  .enter.go .enter-drift {
+    animation-play-state: paused;
   }
 
-  .enter.go .point,
+  .enter.go .invite {
+    opacity: 0;
+    animation: none;
+    transition: opacity 200ms linear;
+  }
+
+  .enter.go .screen iframe {
+    filter: none;
+  }
+
+  /* focus pull: the room dims as the camera moves into the display */
+  .enter.go .photo > img {
+    filter: brightness(0.45);
+    opacity: 0;
+    transition:
+      filter 420ms ease-out,
+      opacity 700ms linear 300ms;
+  }
+
   .enter.go .point-label,
   .enter.go .glass {
     opacity: 0;
-    transition: opacity 260ms linear;
+    transition: opacity 240ms linear;
+    animation: none;
+  }
+
+  /* the lamp follows you into the page for a moment, so the room and the site
+     are not two unrelated worlds */
+  .enter-afterglow {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    pointer-events: none;
+    background: radial-gradient(
+      58% 46% at 80% -4%,
+      rgba(255, 186, 110, 0.26),
+      rgba(255, 150, 70, 0.08) 42%,
+      transparent 72%
+    );
+    animation: enterAfterglow 1600ms ease-out forwards;
+  }
+
+  @keyframes enterAfterglow {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 
   html.locked body {
@@ -229,11 +311,13 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .enter .point path {
-      stroke-dashoffset: 0;
+    .enter-drift,
+    .enter .point-label,
+    .enter.lit .invite {
+      animation: none;
     }
     .enter .point-label {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 </style>
@@ -244,19 +328,19 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
   if (box) {
     const params = new URLSearchParams(location.search);
     const root = document.documentElement;
-    const embedded = (() => {
-      try {
-        return window.self !== window.top;
-      } catch (e) {
-        return true;
-      }
-    })() || params.has("embed");
+    const embedded =
+      (() => {
+        try {
+          return window.self !== window.top;
+        } catch (e) {
+          return true;
+        }
+      })() || params.has("embed");
 
     if (embedded) root.classList.add("embed");
 
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const touch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const small = window.innerWidth < 940 || window.innerHeight < 560;
+    const tooSmall = window.innerHeight < 430 || window.innerWidth < 320;
     const forced = params.has("intro");
 
     let visited = false;
@@ -265,61 +349,116 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
       localStorage.removeItem("gk-visited"); /* flag left by an earlier build */
     } catch (e) {}
 
-    const skip =
-      embedded || still || touch || small || location.hash || (visited && !forced);
+    const skip = embedded || still || tooSmall || location.hash || (visited && !forced);
 
     if (!skip) {
       const stage = document.getElementById("enterStage") as HTMLElement;
+      const drift = document.getElementById("enterDrift") as HTMLElement;
       const photo = document.getElementById("enterPhoto") as HTMLElement;
       const screenEl = document.getElementById("enterScreen") as HTMLElement;
       const frame = document.getElementById("enterFrame") as HTMLIFrameElement;
+      const img = photo.querySelector("img") as HTMLImageElement;
 
       /* where the laptop's panel sits inside the photograph */
       const PANEL = { x: 0.2952, y: 0.2772, w: 0.3826, h: 0.3639 };
+      /* a phone cannot land 1:1 on a landscape panel, so there it keeps the
+         panel's own shape, shows the desktop layout a laptop would show, and
+         hands over with a cross-fade instead */
+      const narrow = window.innerWidth < 760;
+      const EMBED_W = 1280;
+      const EMBED_H = 800;
 
-      /* the panel is trimmed to the viewport's shape and the page inside is
-         rendered at full viewport size, then scaled down — so walking in is a
-         plain scale back to 1 and lands pin sharp on the real page */
       const fit = () => {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        const pr = photo.getBoundingClientRect();
-        let w = PANEL.w * pr.width;
-        let h = PANEL.h * pr.height;
-        let x = PANEL.x * pr.width;
-        let y = PANEL.y * pr.height;
-        const va = vw / vh;
+        /* layout box, not the drifting on-screen rect */
+        const pw = photo.offsetWidth;
+        const ph = photo.offsetHeight;
 
-        if (w / h > va) {
-          const nw = h * va;
-          x += (w - nw) / 2;
-          w = nw;
-        } else {
-          const nh = w / va;
-          y += (h - nh) / 2;
-          h = nh;
+        let w = PANEL.w * pw;
+        let h = PANEL.h * ph;
+        let x = PANEL.x * pw;
+        let y = PANEL.y * ph;
+
+        if (!narrow) {
+          const va = vw / vh;
+          if (w / h > va) {
+            const nw = h * va;
+            x += (w - nw) / 2;
+            w = nw;
+          } else {
+            const nh = w / va;
+            y += (h - nh) / 2;
+            h = nh;
+          }
         }
 
         screenEl.style.left = x + "px";
         screenEl.style.top = y + "px";
         screenEl.style.width = w + "px";
         screenEl.style.height = h + "px";
-        frame.style.width = vw + "px";
-        frame.style.height = vh + "px";
-        frame.style.transform = "scale(" + (w / vw).toFixed(5) + ")";
+
+        const invite = document.getElementById("enterInvite");
+        if (invite) {
+          invite.style.left = x + "px";
+          invite.style.top = y + "px";
+          invite.style.width = w + "px";
+          invite.style.height = h + "px";
+        }
+
+        const fw = narrow ? EMBED_W : vw;
+        const fh = narrow ? EMBED_H : vh;
+        frame.style.width = fw + "px";
+        frame.style.height = fh + "px";
+        frame.style.transform = "scale(" + (w / fw).toFixed(5) + ")";
       };
 
       box.hidden = false;
       box.setAttribute("aria-hidden", "false");
       root.classList.add("locked");
       fit();
-
-      /* the laptop wakes up once the page inside it has loaded */
-      const lightUp = () => box.classList.add("lit");
-      frame.addEventListener("load", lightUp);
-      setTimeout(lightUp, 900);
-      frame.src = box.dataset.embed || "/?embed=1";
       window.addEventListener("resize", fit);
+
+      /* the room is painted first; only then does the laptop start loading */
+      const loadScreen = () => {
+        if (frame.src.endsWith("blank")) frame.src = box.dataset.embed || "/?embed=1";
+      };
+      if (img.complete) loadScreen();
+      else img.addEventListener("load", loadScreen, { once: true });
+      setTimeout(loadScreen, 1800);
+
+      /* the screen wakes once the page inside it has loaded, then drifts
+         slowly down the page so it reads as something being browsed */
+      let liveTimer = 0;
+      let liveFrom = 0;
+      let liveReach = -1;
+      const liveStart = () => {
+        const begin = performance.now();
+        /* measured once, then nudged a few times a second: reading scrollHeight
+           every frame forces layout inside the iframe and janks the whole page */
+        liveTimer = window.setInterval(() => {
+          try {
+            const win = frame.contentWindow;
+            if (!win) return;
+            if (liveReach < 0) {
+              const page = win.document.documentElement.scrollHeight || 0;
+              const view = narrow ? EMBED_H : window.innerHeight;
+              liveReach = Math.min(460, Math.max(0, page - view));
+            }
+            const phase = (performance.now() - begin) / 46000;
+            liveFrom = (liveReach * (1 - Math.cos(phase * Math.PI * 2))) / 2;
+            win.scrollTo({ top: liveFrom, behavior: "instant" });
+          } catch (e) {}
+        }, 120);
+      };
+
+      const lightUp = () => {
+        if (box.classList.contains("lit")) return;
+        box.classList.add("lit");
+        if (!still) liveStart();
+      };
+      frame.addEventListener("load", lightUp);
+      setTimeout(lightUp, 2600);
 
       let walked = false;
       const walkIn = () => {
@@ -329,10 +468,31 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
           sessionStorage.setItem("gk-visited", "1");
         } catch (e) {}
 
+        /* bring the copy on the laptop back to the top, so it matches the page
+           it is about to become */
+        clearInterval(liveTimer);
+        const scrollBegin = performance.now();
+        const from = liveFrom;
+        const settle = (now: number) => {
+          const p = Math.min((now - scrollBegin) / 520, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          try {
+            frame.contentWindow?.scrollTo({ top: from * (1 - eased), behavior: "instant" });
+          } catch (e) {}
+          if (p < 1) requestAnimationFrame(settle);
+        };
+        requestAnimationFrame(settle);
+
+        /* freeze the breathing shot before measuring, so the camera lands */
+        drift.style.animationPlayState = "paused";
+
         const vw = window.innerWidth;
+        const vh = window.innerHeight;
         const st = stage.getBoundingClientRect();
         const sr = screenEl.getBoundingClientRect();
-        const scale = vw / sr.width;
+        const scale = narrow
+          ? Math.max(vw / sr.width, vh / sr.height)
+          : vw / sr.width;
         const tx = -st.left - scale * (sr.left - st.left);
         const ty = -st.top - scale * (sr.top - st.top);
 
@@ -346,11 +506,17 @@ const embedSrc = lang === "tr" ? "/tr/?embed=1" : "/?embed=1";
         setTimeout(() => {
           box.classList.add("done");
           root.classList.remove("locked");
+
+          const glow = document.createElement("div");
+          glow.className = "enter-afterglow";
+          document.body.appendChild(glow);
+          setTimeout(() => glow.remove(), 1700);
+
           setTimeout(() => {
             box.hidden = true;
             frame.src = "about:blank";
             window.removeEventListener("resize", fit);
-          }, 300);
+          }, 320);
         }, 1220);
       };
 
