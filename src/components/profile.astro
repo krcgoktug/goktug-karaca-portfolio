@@ -8,14 +8,6 @@ interface Props {
 
 const { lang } = Astro.props as Props;
 const t = I18N[lang];
-
-const facts = [
-  { k: t.fact_based, v: "İstanbul, TR", live: false },
-  { k: t.fact_now, v: t.fact_now_v, live: false },
-  { k: t.fact_focus, v: t.fact_focus_v, live: false },
-  { k: t.fact_langs, v: t.fact_langs_v, live: false },
-  { k: t.fact_status, v: t.fact_status_v, live: true },
-];
 ---
 
 <section
@@ -27,64 +19,25 @@ const facts = [
     <h3 class="text-4xl md:text-5xl font-medium mb-3">{t.profile_title}</h3>
     <p class="text-[var(--white-icon)] max-w-2xl mb-8">{t.profile_note}</p>
 
-    <div class="grid lg:grid-cols-[1.35fr_0.65fr] gap-8 items-start">
+    <div class="grid lg:grid-cols-[1.35fr_0.65fr] gap-8 items-stretch">
       <div class="space-y-4 text-[var(--white-icon)] leading-relaxed">
         <p>{t.profile_p1}</p>
         <p>{t.profile_p2}</p>
         <p>{t.profile_p3}</p>
-
-        <div
-          class="h-[180px] rounded-2xl overflow-hidden border border-[var(--white-icon-tr)] !mt-7"
-        >
-          <LetterGlitch
-            client:visible
-            glitchColors={["#272727", "#ff5c2b", "#4a2d1d"]}
-            glitchSpeed={60}
-            centerVignette={true}
-            outerVignette={false}
-            smooth={true}
-          />
-        </div>
       </div>
 
-      <dl
-        class="rounded-2xl border border-[var(--white-icon-tr)] bg-[#1414149c] divide-y divide-[#ffffff10] overflow-hidden"
+      <div
+        class="min-h-[260px] rounded-2xl overflow-hidden border border-[var(--white-icon-tr)]"
       >
-        {
-          facts.map((f) => (
-            <div class="grid grid-cols-[auto_1fr] gap-3 px-5 py-4">
-              <dt class="text-[11px] tracking-widest uppercase text-[var(--white-icon)] pt-1">
-                {f.k}
-              </dt>
-              <dd
-                class:list={[
-                  "text-sm text-right",
-                  f.live ? "text-[var(--sec)] flex items-center justify-end gap-2" : "",
-                ]}
-              >
-                {f.live && <span class="size-2 rounded-full bg-[var(--sec)] pulse" />}
-                {f.v}
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+        <LetterGlitch
+          client:visible
+          glitchColors={["#272727", "#ff5c2b", "#4a2d1d"]}
+          glitchSpeed={60}
+          centerVignette={true}
+          outerVignette={false}
+          smooth={true}
+        />
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .pulse {
-    animation: pulse 1.9s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
-    }
-  }
-</style>

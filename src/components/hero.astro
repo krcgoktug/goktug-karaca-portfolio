@@ -1,5 +1,5 @@
 ---
-import { I18N, INTERESTS, type Lang } from "@/data/content";
+import { I18N, INTERESTS, PROJECTS, GH, type Lang } from "@/data/content";
 
 interface Props {
   lang: Lang;
@@ -25,11 +25,22 @@ const socials = [
     path: "M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM20 7.23792L12.0718 14.338L4 7.21594V19H20V7.23792ZM4.51146 5L12.0619 11.662L19.501 5H4.51146Z",
   },
 ];
+
+/* the newest thing in the index, so the hero always points at live work */
+const latest = PROJECTS[0];
+
+/* under the portrait: the questions a recruiter asks in the first ten seconds */
+const facts = [
+  { k: t.fact_based, v: "İstanbul, TR" },
+  { k: t.fact_now, v: t.fact_now_v },
+  { k: t.fact_focus, v: t.fact_focus_v },
+  { k: t.fact_langs, v: t.fact_langs_v },
+];
 ---
 
 <section id="home" class="text-[var(--white)] mt-16 md:mt-0">
-  <div class="max-w-5xl mx-auto md:py-36 pb-14 space-y-10">
-    <div class="grid lg:grid-cols-[1.4fr_0.6fr] gap-10 items-center">
+  <div class="max-w-5xl mx-auto md:pt-32 md:pb-16 pb-12">
+    <div class="grid lg:grid-cols-[1.35fr_0.65fr] gap-10 lg:gap-12 items-start">
       <div class="space-y-5">
         <p class="text-sm md:text-base text-[var(--white-icon)]">
           {t.hero_meta}
@@ -44,6 +55,13 @@ const socials = [
 
         <p class="text-md md:text-xl text-[var(--white-icon)] max-w-xl">
           {t.hero_lede}
+        </p>
+
+        <p
+          class="inline-flex items-center gap-2 text-sm text-[var(--sec)] border border-[#ff5c2b55] bg-[#ff5c2b0d] rounded-full px-4 py-2"
+        >
+          <span class="size-2 rounded-full bg-[var(--sec)] pulse-dot"></span>
+          {t.fact_status_v}
         </p>
 
         <ul class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-1">
@@ -86,27 +104,80 @@ const socials = [
             >{t.nav_resume}</a
           >
         </div>
+
+        <a
+          href={GH + latest.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group mt-2 flex items-center gap-4 rounded-2xl border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-3 hover:border-[#ffffff26] transition-colors"
+        >
+          <span class="text-[10px] tracking-widest uppercase text-[var(--sec)] shrink-0">
+            {lang === "tr" ? "En son" : "Latest"}
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block text-sm font-medium truncate">{latest.name}</span>
+            <span class="block text-xs text-[var(--white-icon)] truncate">
+              {latest.tags.join(" · ")}
+            </span>
+          </span>
+          <span
+            class="text-[var(--white-icon)] group-hover:text-[var(--sec)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0"
+            >↗</span
+          >
+        </a>
       </div>
 
-      <figure class="relative hidden lg:block">
-        <div
-          class="rounded-2xl overflow-hidden border border-[var(--white-icon-tr)] bg-[#1414149c]"
-        >
-          <img
-            src="/assets/profile-photo.jpg"
-            alt="Göktuğ Karaca"
-            width="720"
-            height="960"
-            class="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-          />
-        </div>
-        <figcaption
-          class="mt-2 flex justify-between text-[11px] tracking-widest uppercase text-[var(--white-icon)]"
-        >
-          <span>Fig. 01</span><span>{t.plate_caption}</span>
-        </figcaption>
-      </figure>
-    </div>
+      <div class="space-y-4">
+        <figure class="relative">
+          <div
+            class="rounded-2xl overflow-hidden border border-[var(--white-icon-tr)] bg-[#1414149c]"
+          >
+            <img
+              src="/assets/profile-photo.jpg"
+              alt="Göktuğ Karaca"
+              width="720"
+              height="960"
+              class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
+          <figcaption
+            class="mt-2 flex justify-between gap-2 text-[11px] tracking-widest uppercase text-[var(--white-icon)]"
+          >
+            <span>Fig. 01</span><span class="truncate">{t.plate_caption}</span>
+          </figcaption>
+        </figure>
 
+        <dl
+          class="rounded-2xl border border-[var(--white-icon-tr)] bg-[#1414149c] divide-y divide-[#ffffff10] overflow-hidden"
+        >
+          {
+            facts.map((f) => (
+              <div class="px-4 py-3">
+                <dt class="text-[10px] tracking-widest uppercase text-[var(--white-icon)]">
+                  {f.k}
+                </dt>
+                <dd class="text-sm mt-0.5">{f.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .pulse-dot {
+    animation: pulseDot 1.9s ease-in-out infinite;
+  }
+
+  @keyframes pulseDot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>

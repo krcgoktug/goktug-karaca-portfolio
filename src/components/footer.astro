@@ -12,13 +12,28 @@ const year = new Date().getFullYear();
 
 <footer class="text-[var(--white-icon)] pb-28 md:pb-12 pt-10">
   <div class="max-w-5xl mx-auto">
-    <p
-      class="select-none text-[13vw] md:text-[9rem] leading-none font-semibold tracking-tighter text-transparent whitespace-nowrap overflow-hidden"
-      style="-webkit-text-stroke: 1px #ffffff14;"
-      aria-hidden="true"
+    <!-- drawn as SVG with textLength, so the full name fits the column at any
+         width instead of being clipped by the container -->
+    <svg
+      class="w-full block"
+      viewBox="0 0 1000 140"
+      role="img"
+      aria-label="Göktuğ Karaca"
     >
-      GÖKTUĞ KARACA
-    </p>
+      <text
+        x="0"
+        y="118"
+        textLength="1000"
+        lengthAdjust="spacingAndGlyphs"
+        font-size="120"
+        font-weight="600"
+        fill="none"
+        stroke="#ffffff1f"
+        stroke-width="1"
+      >
+        GÖKTUĞ KARACA
+      </text>
+    </svg>
 
     <div
       class="flex flex-wrap justify-between items-center gap-3 text-[11px] tracking-widest uppercase border-t border-[#ffffff10] mt-6 pt-5"
