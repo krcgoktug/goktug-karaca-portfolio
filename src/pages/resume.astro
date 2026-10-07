@@ -115,6 +115,7 @@ const pdf = "/Goktug_Karaca_Resume.pdf";
   }
 
   .viewer {
+    position: relative;
     flex: 1;
     min-height: 72vh;
     border: 1px solid var(--white-icon-tr);
@@ -123,7 +124,11 @@ const pdf = "/Goktug_Karaca_Resume.pdf";
     background: #0b0b0b;
   }
 
+  /* height:100% never resolved against a flex item sized by min-height, so the
+     PDF sat in the iframe's default 150px; fill the box absolutely instead */
   .viewer iframe {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: 0;

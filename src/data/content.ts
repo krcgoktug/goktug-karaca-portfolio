@@ -23,6 +23,7 @@ export interface LedgerRow {
   when_tr?: string;
   now?: boolean;
   org: string;
+  org_tr?: string;
   en: { title: string; text: string };
   tr: { title: string; text: string };
   links: { label: string; url: string }[];
@@ -237,6 +238,7 @@ export const TIMELINE: LedgerRow[] = [
     when: "Jul — Sep 2026",
     when_tr: "Tem — Eyl 2026",
     org: "FlyRank AI · Remote",
+    org_tr: "FlyRank AI · Uzaktan",
     en: {
       title: "Backend AI engineering intern",
       text: "A remote programme built on weekly deliverables rather than coursework. I finished both the Backend AI Engineering and AI Fluency tracks, shipped something every week — a JWT auth API, a robots-first scraper, a workflow → MCP → agent case study — and closed with a reviewed capstone: a usage metering and billing engine that holds under duplicate webhooks and concurrent retries."
@@ -255,6 +257,7 @@ export const TIMELINE: LedgerRow[] = [
     when: "Jul — Aug 2026",
     when_tr: "Tem — Ağu 2026",
     org: "Microsoft · AI Innovators · Remote",
+    org_tr: "Microsoft · AI Innovators · Uzaktan",
     en: {
       title: "AI Innovators programme participant",
       text: "A local RAG agent that reads the two browser tabs you last looked at and turns their combined context into a new software project, with every answer traceable to the chunk it came from. Python, FastAPI, Playwright, LangChain and Microsoft Foundry Local."
@@ -301,6 +304,7 @@ export const EDUCATION: LedgerRow[] = [
     when: "Aug 2025 — May 2027",
     when_tr: "Ağu 2025 — May 2027",
     org: "Fenerbahçe University · İstanbul",
+    org_tr: "Fenerbahçe Üniversitesi · İstanbul",
     en: {
       title: "BSc Computer Engineering — final year",
       text: "Systems programming, digital system design, data mining, database systems, object-oriented design, computer architecture. The courses I cared about did not stop at the grade."
@@ -315,6 +319,7 @@ export const EDUCATION: LedgerRow[] = [
     when: "Sep 2022 — Aug 2025",
     when_tr: "Eyl 2022 — Ağu 2025",
     org: "Maltepe University · İstanbul",
+    org_tr: "Maltepe Üniversitesi · İstanbul",
     en: {
       title: "BSc Computer Engineering",
       text: "The first three years of the degree, before transferring to Fenerbahçe University."

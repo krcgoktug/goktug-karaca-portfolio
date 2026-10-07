@@ -31,7 +31,7 @@ const { lang, id, num, title, note, rows } = Astro.props as Props;
                 <span>{lang === "tr" && row.when_tr ? row.when_tr : row.when}</span>
                 {row.now && <span class="size-[6px] rounded-full bg-[var(--sec)]" />}
               </div>
-              <div class="text-[var(--white-icon)] opacity-80">{row.org}</div>
+              <div class="text-[var(--white-icon)] opacity-80">{lang === "tr" && row.org_tr ? row.org_tr : row.org}</div>
             </div>
 
             <div>
